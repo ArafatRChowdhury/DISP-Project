@@ -1,0 +1,41 @@
+Case Study: ProBuild Supplies Ltd
+
+ProBuild Supplies Ltd, enterprise based in the UK that specialises in the retail and rental of building materials and construction tools. Operates from a single centralised site which includes a retail storefront, a warehouse for inventory storage and a tool hire division. Spans 3 key domains: 
+- retail sales of building materials and tools
+- tool hire services
+- customer loyalty and trade finance partnerships
+
+Key Business Processes
+
+Actors: customers, probuild, warehouse, logistics team, tool hire process, FinTrust UK
+Tasks(Activities):
+hard goals(services): Products, delivery, rental tools(customers can rent them from half a day to multiple weeks), Trade card
+soft goals(qualities): maintenance and servicing( safety, compliance, operational readiness)
+resources(entities to be delivered): payment(can be done through cash card or interest free finance(available to eligible members))
+
+tool hire process:
+- customer checks availability
+- booking is confirmed and payment or deposit is taken 
+- tools are issued with a return date and a condition log
+- upon return tools are inspected
+- tools are sent for servicing to an external maintenance partner(FixPro)
+
+warehouse handles:
+- receipt of incoming goods from suppliers
+- stocking and binning of tools and materials
+- order fulfilment for both walk-in and online customers
+- tool hire returns and temporary storage before maintenance collection
+
+Inventory management system(IMS) integrates with the POS(Point-of-Sale) system to maintain stock levels. Staff perform daily stock checks and a weekly cycle count
+
+Benefits of Trade card:
+- Access to interest-free financing
+- Discount of up to 10% based on loyalty points
+- Priority tool hire booking during peak seasons
+- Points are accrued per pound spent and can be used to increase the discount band; points reset annually
+
+FinTrust process: 
+- Trade card member opts for finance at checkout
+- Credit application is processed by fintrust
+- fintrust pays probuild the full amount upfront; customer can take the items immediately
+- customer has to repay fintrust the full amount in equal monthly installment over a period of 6/12 months
