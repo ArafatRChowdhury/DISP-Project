@@ -13,14 +13,14 @@ hard goals(services): Products, delivery, rental tools(customers can rent them f
 soft goals(qualities): maintenance and servicing( safety, compliance, operational readiness)
 resources(entities to be delivered): payment(can be done through cash card or interest free finance(available to eligible members))
 
-tool hire process:
+(task)tool hire process:
 - customer checks availability
 - booking is confirmed and payment or deposit is taken 
 - tools are issued with a return date and a condition log
 - upon return tools are inspected
 - tools are sent for servicing to an external maintenance partner(FixPro)
 
-warehouse handles:
+(task)warehouse handles:
 - receipt of incoming goods from suppliers
 - stocking and binning of tools and materials
 - order fulfilment for both walk-in and online customers
@@ -34,7 +34,7 @@ Benefits of Trade card:
 - Priority tool hire booking during peak seasons
 - Points are accrued per pound spent and can be used to increase the discount band; points reset annually
 
-FinTrust process: 
+(task)FinTrust process: 
 - Trade card member opts for finance at checkout
 - Credit application is processed by fintrust
 - fintrust pays probuild the full amount upfront; customer can take the items immediately
