@@ -1,0 +1,190 @@
+{
+  "actors": [
+    {
+      "id": "eadb6731-637c-4d9b-bd8e-6b81ffb3d30c",
+      "text": "FinTrust UK",
+      "type": "istar.Actor",
+      "x": 661,
+      "y": 354,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": []
+    },
+    {
+      "id": "22ca4249-2b0e-4c30-be72-7a44d5dbe769",
+      "text": "Tool Hire Process",
+      "type": "istar.Actor",
+      "x": 97,
+      "y": 363,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": []
+    },
+    {
+      "id": "9ddd4658-531b-4324-a0ae-f90e805f9c69",
+      "text": "Logistics Team",
+      "type": "istar.Actor",
+      "x": 386,
+      "y": 352,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": []
+    },
+    {
+      "id": "4080f11b-a3b7-403e-b04b-c14b45939233",
+      "text": "Warehouse",
+      "type": "istar.Actor",
+      "x": 728,
+      "y": 103,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": []
+    },
+    {
+      "id": "01ec3475-7ef8-41b1-8845-5171b4742059",
+      "text": "Probuild",
+      "type": "istar.Actor",
+      "x": 504,
+      "y": 101,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": []
+    },
+    {
+      "id": "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3",
+      "text": "Customer",
+      "type": "istar.Actor",
+      "x": 91,
+      "y": 110,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": []
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "751c46e6-9b07-4ae8-9511-147e5b4a9f3f",
+      "text": "Rent Tool",
+      "type": "istar.Goal",
+      "x": 94,
+      "y": 237,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3",
+      "target": "22ca4249-2b0e-4c30-be72-7a44d5dbe769"
+    },
+    {
+      "id": "1c550432-ecee-447f-ac7b-c08c230f65dd",
+      "text": "Purchase Tools/Materials",
+      "type": "istar.Goal",
+      "x": 270,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3",
+      "target": "01ec3475-7ef8-41b1-8845-5171b4742059"
+    },
+    {
+      "id": "116070fc-3557-4a5c-83f9-79f880e7699c",
+      "text": "Delivery",
+      "type": "istar.Goal",
+      "x": 238.5,
+      "y": 231,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3",
+      "target": "9ddd4658-531b-4324-a0ae-f90e805f9c69"
+    }
+  ],
+  "links": [
+    {
+      "id": "7e3170cd-7f42-4807-8176-9bbca70f02b2",
+      "type": "istar.DependencyLink",
+      "source": "116070fc-3557-4a5c-83f9-79f880e7699c",
+      "target": "9ddd4658-531b-4324-a0ae-f90e805f9c69"
+    },
+    {
+      "id": "92e7a143-6327-462d-bd37-dad64356316d",
+      "type": "istar.DependencyLink",
+      "source": "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3",
+      "target": "116070fc-3557-4a5c-83f9-79f880e7699c"
+    },
+    {
+      "id": "e52ca017-b88f-4968-84a6-0b294db82dbf",
+      "type": "istar.DependencyLink",
+      "source": "1c550432-ecee-447f-ac7b-c08c230f65dd",
+      "target": "01ec3475-7ef8-41b1-8845-5171b4742059"
+    },
+    {
+      "id": "3dc2011f-d821-449e-96f4-e4173512fbcd",
+      "type": "istar.DependencyLink",
+      "source": "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3",
+      "target": "1c550432-ecee-447f-ac7b-c08c230f65dd"
+    },
+    {
+      "id": "0090fb97-fe83-455c-acc2-14a5a4a7e318",
+      "type": "istar.DependencyLink",
+      "source": "751c46e6-9b07-4ae8-9511-147e5b4a9f3f",
+      "target": "22ca4249-2b0e-4c30-be72-7a44d5dbe769"
+    },
+    {
+      "id": "a06f7c0c-7688-474e-9868-25e897562965",
+      "type": "istar.DependencyLink",
+      "source": "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3",
+      "target": "751c46e6-9b07-4ae8-9511-147e5b4a9f3f"
+    }
+  ],
+  "display": {
+    "1c550432-ecee-447f-ac7b-c08c230f65dd": {
+      "width": 104.38748168945312,
+      "height": 50.625
+    },
+    "e52ca017-b88f-4968-84a6-0b294db82dbf": {
+      "vertices": [
+        {
+          "x": 315,
+          "y": 123
+        }
+      ]
+    },
+    "eadb6731-637c-4d9b-bd8e-6b81ffb3d30c": {
+      "collapsed": true
+    },
+    "22ca4249-2b0e-4c30-be72-7a44d5dbe769": {
+      "collapsed": true
+    },
+    "9ddd4658-531b-4324-a0ae-f90e805f9c69": {
+      "collapsed": true
+    },
+    "4080f11b-a3b7-403e-b04b-c14b45939233": {
+      "collapsed": true
+    },
+    "01ec3475-7ef8-41b1-8845-5171b4742059": {
+      "collapsed": true
+    },
+    "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3": {
+      "collapsed": true
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Sun, 16 Nov 2025 20:44:59 GMT",
+  "diagram": {
+    "width": 1000,
+    "height": 700,
+    "name": "Welcome Model",
+    "customProperties": {
+      "Description": "Welcome to the piStar tool version 2.1.0, released on November, 2021! This model describes some of the recent improvements in the tool. Click on the purple elements for further info.\n\nFor help using this tool, please check the Help menu above"
+    }
+  }
+}
