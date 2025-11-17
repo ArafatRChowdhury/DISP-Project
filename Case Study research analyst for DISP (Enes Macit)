@@ -1,0 +1,27 @@
+External Maintenance Process-FixPro Ltd
+
+Actors: Wherehouse, service vehicle, probuild stuff, wherehouse supervisior, fixpro driver, fixpro servicing facility workers, testing and labelling workers, Fixpro client portal wrokers, Account manager of the Fixpro, Probuild’s operations manager, Tool hire operations, online system, Qualified technicians 
+
+Tasks: 
+Fix pro driver -weekly collection and drop off of tools, 
+ProBuild stuff- Tagging and logging tools flagged for maintenance, rescanning returned tools and relocating them to the ready to hire area, 
+ProBuild Warehouse Supervisor and FixPro Driver- signing off on the check list
+Fix pro stuff- returning tools, recording serviced tools, 
+Fix Pro technicians -initial inspection, service classification, carrying out, performing(testing)
+Fix Pro Account Manager & ProBuild Operations Manager- doing a review meeting to discuss and optimize the hire fleet.
+
+Hard Goals: 
+turnaround time :90% of tools serviced within 5 business days
+First time fix rate: minimum of %85
+Compliance Audit Pass Rate: 100% adherence to UK safety standards
+Repair Authorisation Threshold: Prior authorisation is required from ProBuild for repairs exceeding £50
+
+Soft Goals: Dedicated service, ensure safety, 
+ensure efficient turnaround, 
+Ensure Operational Readiness, 
+Achieve Minimal Downtime for Tools,
+ Allow ProBuild to avoid Investing in In-House Technical Staff or Complex Workshop Infrastructure, 
+
+Optimise the Hire Fleet
+Resources: Fix pro’s client portal, digital handover checklist, services report, account manager of the fixpro, technicians, fixpro driver, fixpro’s servicing facility, remote portal, API.
+
