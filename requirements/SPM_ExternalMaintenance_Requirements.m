@@ -74,6 +74,8 @@ ProBuild rescans tools and moves them to the ready-to-hire area
 
 If needed, steps 5–7 can be grouped into a subprocess.
 
+*Note: BPMN does not natively represent hard/soft goals (as in i* models). These goals are included here as strategic requirements that the BPMN process must support.*
+
 5. Hard Goals (KPIs)
 
 These KPIs must be shown in the model as constraints or decision points:
