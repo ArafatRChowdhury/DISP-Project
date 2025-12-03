@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+             id="Definitions_OperationalMaintenance"
+             targetNamespace="http://bpmn.io/schema/bpmn">
+
+  
+  <process id="OperationalMaintenance_ProBuild"
+           name="Operational External Maintenance – ProBuild"
+           isExecutable="true">
+
+    <startEvent id="Start_ProBuild" name="Start maintenance cycle">
+      <outgoing>PB_Flow_1</outgoing>
+    </startEvent>
+
+    <userTask id="Task_RegisterTools"
+              name="Register tools for external maintenance"
+              camunda:assignee="warehouse_staff">
+      <incoming>PB_Flow_1</incoming>
+      <outgoing>PB_Flow_2</outgoing>
+    </userTask>
+
+    <userTask id="Task_PrepareServiceBay"
+              name="Prepare tools in Service Bay"
+              camunda:assignee="warehouse_staff">
+      <incoming>PB_Flow_2</incoming>
+      <outgoing>PB_Flow_3</outgoing>
+    </userTask>
+
+    <userTask id="Task_GenerateChecklist"
+              name="Generate digital handover checklist"
+              camunda:assignee="warehouse_supervisor">
+      <incoming>PB_Flow_3</incoming>
+      <outgoing>PB_Flow_4</outgoing>
+    </userTask>
+
+    <sendTask id="Task_SendCollectionRequest"
+              name="Send collection request to FixPro"
+              camunda:type="external"
+              camunda:topic="sendCollectionRequest">
+      <incoming>PB_Flow_4</incoming>
+      <!-- outgoing is message flow -->
+    </sendTask>
+
+    <intermediateCatchEvent id="Event_WaitForCompletion" name="Await FixPro completion">
+      <incoming>PB_Flow_4b</incoming>
+      <outgoing>PB_Flow_8</outgoing>
+    </intermediateCatchEvent>
+
+    <receiveTask id="Task_ReceiveCompletionNotice"
+                 name="Receive completion notice &amp; service reports">
+      <incoming>PB_Flow_8</incoming>
+      <outgoing>PB_Flow_5</outgoing>
+    </receiveTask>
+
+    <serviceTask id="Task_UpdateIMS"
+                 name="Update internal tool management system (API sync)"
+                 camunda:type="external"
+                 camunda:topic="syncServiceData">
+      <incoming>PB_Flow_5</incoming>
+      <outgoing>PB_Flow_6</outgoing>
+    </serviceTask>
+
+    <userTask id="Task_RescanAndRelocate"
+              name="Rescan &amp; relocate tools to Ready-to-Hire area"
+              camunda:assignee="warehouse_staff">
+      <incoming>PB_Flow_6</incoming>
+      <outgoing>PB_Flow_7</outgoing>
+    </userTask>
+
+    <endEvent id="End_ProBuild" name="Tools ready to hire">
+      <incoming>PB_Flow_7</incoming>
+    </endEvent>
+
+   
+    <sequenceFlow id="PB_Flow_1" sourceRef="Start_ProBuild" targetRef="Task_RegisterTools"/>
+    <sequenceFlow id="PB_Flow_2" sourceRef="Task_RegisterTools" targetRef="Task_PrepareServiceBay"/>
+    <sequenceFlow id="PB_Flow_3" sourceRef="Task_PrepareServiceBay" targetRef="Task_GenerateChecklist"/>
+    <sequenceFlow id="PB_Flow_4" sourceRef="Task_GenerateChecklist" targetRef="Task_SendCollectionRequest"/>
+    <sequenceFlow id="PB_Flow_4b" sourceRef="Task_SendCollectionRequest" targetRef="Event_WaitForCompletion"/>
+    <sequenceFlow id="PB_Flow_8" sourceRef="Event_WaitForCompletion" targetRef="Task_ReceiveCompletionNotice"/>
+    <sequenceFlow id="PB_Flow_5" sourceRef="Task_ReceiveCompletionNotice" targetRef="Task_UpdateIMS"/>
+    <sequenceFlow id="PB_Flow_6" sourceRef="Task_UpdateIMS" targetRef="Task_RescanAndRelocate"/>
+    <sequenceFlow id="PB_Flow_7" sourceRef="Task_RescanAndRelocate" targetRef="End_ProBuild"/>
+
+  
+    <dataObjectReference id="Data_PB_ToolRegister" name="Tool Register / Scan Log"/>
+    <dataObjectReference id="Data_PB_HandoverChecklist" name="Digital Handover Checklist"/>
+    <dataObjectReference id="Data_PB_ServiceReports" name="Service Reports from FixPro"/>
+    <dataObjectReference id="Data_PB_IMSUpdate" name="IMS Update / Inventory Record"/>
+
+  </process>
+
+ 
+  <process id="OperationalMaintenance_FixPro"
+           name="Operational External Maintenance – FixPro"
+           isExecutable="true">
+
+    <startEvent id="Start_FixPro" name="Collection request received">
+      <outgoing>FP_Flow_1</outgoing>
+    </startEvent>
+
+    <receiveTask id="Task_ReceiveCollectionRequest"
+                 name="Receive collection request from ProBuild">
+      <incoming>FP_Flow_1</incoming>
+      <outgoing>FP_Flow_2</outgoing>
+    </receiveTask>
+
+    <userTask id="Task_ScheduleCollection"
+              name="Schedule collection visit"
+              camunda:assignee="fixpro_planner">
+      <incoming>FP_Flow_2</incoming>
+      <outgoing>FP_Flow_3</outgoing>
+    </userTask>
+
+    <userTask id="Task_CollectTools"
+              name="Collect tools from ProBuild"
+              camunda:assignee="fixpro_driver">
+      <incoming>FP_Flow_3</incoming>
+      <outgoing>FP_Flow_4</outgoing>
+    </userTask>
+
+    <subProcess id="SubProcess_ServiceTools" name="Service tools at FixPro facility">
+      <incoming>FP_Flow_4</incoming>
+      <outgoing>FP_Flow_5</outgoing>
+
+      <startEvent id="Start_Service" name="Tools received at facility">
+        <outgoing>FX_Flow_1</outgoing>
+      </startEvent>
+
+      <userTask id="Task_InitialInspection"
+                name="Initial inspection &amp; diagnostics"
+                camunda:assignee="technician">
+        <incoming>FX_Flow_1</incoming>
+        <outgoing>FX_Flow_2</outgoing>
+      </userTask>
+
+      <exclusiveGateway id="GW_ClassifyService" name="Routine / Repair / Decommission?">
+        <incoming>FX_Flow_2</incoming>
+        <outgoing>FX_Flow_3</outgoing>
+        <outgoing>FX_Flow_4</outgoing>
+        <outgoing>FX_Flow_5</outgoing>
+      </exclusiveGateway>
+
+      <userTask id="Task_RoutineService"
+                name="Perform routine maintenance"
+                camunda:assignee="technician">
+        <incoming>FX_Flow_3</incoming>
+        <outgoing>FX_Flow_6</outgoing>
+      </userTask>
+
+      <userTask id="Task_RepairService"
+                name="Perform repair"
+                camunda:assignee="technician">
+        <incoming>FX_Flow_4</incoming>
+        <outgoing>FX_Flow_7</outgoing>
+      </userTask>
+
+      <userTask id="Task_Decommission"
+                name="Flag tool for decommissioning"
+                camunda:assignee="technician">
+        <incoming>FX_Flow_5</incoming>
+        <outgoing>FX_Flow_8</outgoing>
+      </userTask>
+
+      <serviceTask id="Task_ComplianceTesting"
+                   name="Compliance testing &amp; PAT"
+                   camunda:type="external"
+                   camunda:topic="runComplianceTests">
+        <incoming>FX_Flow_6</incoming>
+        <incoming>FX_Flow_7</incoming>
+        <incoming>FX_Flow_8</incoming>
+        <outgoing>FX_Flow_9</outgoing>
+      </serviceTask>
+
+      <exclusiveGateway id="GW_CompliancePass" name="Compliance passed?">
+        <incoming>FX_Flow_9</incoming>
+        <outgoing>FX_Flow_10</outgoing>
+      </exclusiveGateway>
+
+      <endEvent id="End_Service" name="Tools serviced &amp; tested">
+        <incoming>FX_Flow_10</incoming>
+      </endEvent>
+
+     
+      <sequenceFlow id="FX_Flow_1" sourceRef="Start_Service" targetRef="Task_InitialInspection"/>
+      <sequenceFlow id="FX_Flow_2" sourceRef="Task_InitialInspection" targetRef="GW_ClassifyService"/>
+      <sequenceFlow id="FX_Flow_3" sourceRef="GW_ClassifyService" targetRef="Task_RoutineService"/>
+      <sequenceFlow id="FX_Flow_4" sourceRef="GW_ClassifyService" targetRef="Task_RepairService"/>
+      <sequenceFlow id="FX_Flow_5" sourceRef="GW_ClassifyService" targetRef="Task_Decommission"/>
+      <sequenceFlow id="FX_Flow_6" sourceRef="Task_RoutineService" targetRef="Task_ComplianceTesting"/>
+      <sequenceFlow id="FX_Flow_7" sourceRef="Task_RepairService" targetRef="Task_ComplianceTesting"/>
+      <sequenceFlow id="FX_Flow_8" sourceRef="Task_Decommission" targetRef="Task_ComplianceTesting"/>
+      <sequenceFlow id="FX_Flow_9" sourceRef="Task_ComplianceTesting" targetRef="GW_CompliancePass"/>
+      <sequenceFlow id="FX_Flow_10" sourceRef="GW_CompliancePass" targetRef="End_Service"/>
+
+    </subProcess>
+
+    <serviceTask id="Task_UpdatePortal"
+                 name="Update FixPro client portal &amp; generate reports"
+                 camunda:type="external"
+                 camunda:topic="updateClientPortal">
+      <incoming>FP_Flow_5</incoming>
+      <outgoing>FP_Flow_6</outgoing>
+    </serviceTask>
+
+    <sendTask id="Task_SendCompletionNotice"
+              name="Send completion notice &amp; reports to ProBuild"
+              camunda:type="external"
+              camunda:topic="sendCompletionNotice">
+      <incoming>FP_Flow_6</incoming>
+    </sendTask>
+
+    <endEvent id="End_FixPro" name="Service completed &amp; reported">
+      <incoming>FP_Flow_7</incoming>
+    </endEvent>
+
+
+    <sequenceFlow id="FP_Flow_1" sourceRef="Start_FixPro" targetRef="Task_ReceiveCollectionRequest"/>
+    <sequenceFlow id="FP_Flow_2" sourceRef="Task_ReceiveCollectionRequest" targetRef="Task_ScheduleCollection"/>
+    <sequenceFlow id="FP_Flow_3" sourceRef="Task_ScheduleCollection" targetRef="Task_CollectTools"/>
+    <sequenceFlow id="FP_Flow_4" sourceRef="Task_CollectTools" targetRef="SubProcess_ServiceTools"/>
+    <sequenceFlow id="FP_Flow_5" sourceRef="SubProcess_ServiceTools" targetRef="Task_UpdatePortal"/>
+    <sequenceFlow id="FP_Flow_6" sourceRef="Task_UpdatePortal" targetRef="Task_SendCompletionNotice"/>
+    <sequenceFlow id="FP_Flow_7" sourceRef="Task_SendCompletionNotice" targetRef="End_FixPro"/>
+
+    
+    <dataObjectReference id="Data_FX_ServiceSummary" name="Service Summary Report"/>
+    <dataObjectReference id="Data_FX_Exceptions" name="Exceptions Report"/>
+    <dataObjectReference id="Data_FX_ComplianceLabels" name="Compliance Labels"/>
+    <dataObjectReference id="Data_FX_InvoiceData" name="Invoice / Cost Breakdown"/>
+
+  </process>
+
+ 
+  <collaboration id="Collaboration_OperationalMaintenance"
+                 name="ProBuild–FixPro Operational Collaboration">
+    <participant id="Participant_ProBuild"
+                 processRef="OperationalMaintenance_ProBuild"
+                 name="ProBuild Supplies Ltd"/>
+    <participant id="Participant_FixPro"
+                 processRef="OperationalMaintenance_FixPro"
+                 name="FixPro Ltd"/>
+
+    <messageFlow id="MessageFlow_CollectionRequest"
+                 name="Collection request"
+                 sourceRef="Task_SendCollectionRequest"
+                 targetRef="Task_ReceiveCollectionRequest"/>
+
+    <messageFlow id="MessageFlow_CompletionNotice"
+                 name="Completion notice &amp; reports"
+                 sourceRef="Task_SendCompletionNotice"
+                 targetRef="Task_ReceiveCompletionNotice"/>
+  </collaboration>
+
+ 
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Operational">
+    <bpmndi:BPMNPlane id="BPMNPlane_Operational" bpmnElement="Collaboration_OperationalMaintenance">
+
+     
+      <bpmndi:BPMNShape id="Participant_ProBuild_di" bpmnElement="Participant_ProBuild">
+        <dc:Bounds x="120" y="80" width="900" height="200"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_FixPro_di" bpmnElement="Participant_FixPro">
+        <dc:Bounds x="120" y="320" width="900" height="260"/>
+      </bpmndi:BPMNShape>
+
+     
+      <bpmndi:BPMNShape id="Start_ProBuild_di" bpmnElement="Start_ProBuild">
+        <dc:Bounds x="160" y="150" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RegisterTools_di" bpmnElement="Task_RegisterTools">
+        <dc:Bounds x="230" y="140" width="120" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_PrepareServiceBay_di" bpmnElement="Task_PrepareServiceBay">
+        <dc:Bounds x="380" y="140" width="120" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_GenerateChecklist_di" bpmnElement="Task_GenerateChecklist">
+        <dc:Bounds x="530" y="140" width="140" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SendCollectionRequest_di" bpmnElement="Task_SendCollectionRequest">
+        <dc:Bounds x="710" y="140" width="150" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_WaitForCompletion_di" bpmnElement="Event_WaitForCompletion">
+        <dc:Bounds x="710" y="190" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReceiveCompletionNotice_di" bpmnElement="Task_ReceiveCompletionNotice">
+        <dc:Bounds x="790" y="190" width="170" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_UpdateIMS_di" bpmnElement="Task_UpdateIMS">
+        <dc:Bounds x="230" y="210" width="150" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RescanAndRelocate_di" bpmnElement="Task_RescanAndRelocate">
+        <dc:Bounds x="410" y="210" width="180" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_ProBuild_di" bpmnElement="End_ProBuild">
+        <dc:Bounds x="620" y="220" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+
+     
+      <bpmndi:BPMNEdge id="PB_Flow_1_di" bpmnElement="PB_Flow_1">
+        <di:waypoint x="196" y="168"/>
+        <di:waypoint x="230" y="168"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="PB_Flow_2_di" bpmnElement="PB_Flow_2">
+        <di:waypoint x="350" y="168"/>
+        <di:waypoint x="380" y="168"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="PB_Flow_3_di" bpmnElement="PB_Flow_3">
+        <di:waypoint x="500" y="168"/>
+        <di:waypoint x="530" y="168"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="PB_Flow_4_di" bpmnElement="PB_Flow_4">
+        <di:waypoint x="670" y="168"/>
+        <di:waypoint x="710" y="168"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="PB_Flow_4b_di" bpmnElement="PB_Flow_4b">
+        <di:waypoint x="785" y="196"/>
+        <di:waypoint x="728" y="208"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="PB_Flow_8_di" bpmnElement="PB_Flow_8">
+        <di:waypoint x="746" y="208"/>
+        <di:waypoint x="790" y="218"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="PB_Flow_5_di" bpmnElement="PB_Flow_5">
+        <di:waypoint x="960" y="218"/>
+        <di:waypoint x="960" y="238"/>
+        <di:waypoint x="380" y="238"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="PB_Flow_6_di" bpmnElement="PB_Flow_6">
+        <di:waypoint x="410" y="238"/>
+        <di:waypoint x="410" y="238"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="PB_Flow_7_di" bpmnElement="PB_Flow_7">
+        <di:waypoint x="590" y="238"/>
+        <di:waypoint x="620" y="238"/>
+      </bpmndi:BPMNEdge>
+
+     
+      <bpmndi:BPMNShape id="Start_FixPro_di" bpmnElement="Start_FixPro">
+        <dc:Bounds x="160" y="360" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReceiveCollectionRequest_di" bpmnElement="Task_ReceiveCollectionRequest">
+        <dc:Bounds x="230" y="350" width="150" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ScheduleCollection_di" bpmnElement="Task_ScheduleCollection">
+        <dc:Bounds x="410" y="350" width="150" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CollectTools_di" bpmnElement="Task_CollectTools">
+        <dc:Bounds x="590" y="350" width="150" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SubProcess_ServiceTools_di" bpmnElement="SubProcess_ServiceTools" isExpanded="true">
+        <dc:Bounds x="770" y="340" width="220" height="150"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_UpdatePortal_di" bpmnElement="Task_UpdatePortal">
+        <dc:Bounds x="230" y="440" width="180" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SendCompletionNotice_di" bpmnElement="Task_SendCompletionNotice">
+        <dc:Bounds x="450" y="440" width="200" height="56"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_FixPro_di" bpmnElement="End_FixPro">
+        <dc:Bounds x="690" y="450" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+
+      
+      <bpmndi:BPMNEdge id="FP_Flow_1_di" bpmnElement="FP_Flow_1">
+        <di:waypoint x="196" y="378"/>
+        <di:waypoint x="230" y="378"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="FP_Flow_2_di" bpmnElement="FP_Flow_2">
+        <di:waypoint x="380" y="378"/>
+        <di:waypoint x="410" y="378"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="FP_Flow_3_di" bpmnElement="FP_Flow_3">
+        <di:waypoint x="560" y="378"/>
+        <di:waypoint x="590" y="378"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="FP_Flow_4_di" bpmnElement="FP_Flow_4">
+        <di:waypoint x="740" y="378"/>
+        <di:waypoint x="770" y="378"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="FP_Flow_5_di" bpmnElement="FP_Flow_5">
+        <di:waypoint x="990" y="415"/>
+        <di:waypoint x="320" y="468"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="FP_Flow_6_di" bpmnElement="FP_Flow_6">
+        <di:waypoint x="410" y="468"/>
+        <di:waypoint x="450" y="468"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="FP_Flow_7_di" bpmnElement="FP_Flow_7">
+        <di:waypoint x="650" y="468"/>
+        <di:waypoint x="690" y="468"/>
+      </bpmndi:BPMNEdge>
+
+    
+      <bpmndi:BPMNEdge id="MessageFlow_CollectionRequest_di"
+                       bpmnElement="MessageFlow_CollectionRequest">
+        <di:waypoint x="785" y="196"/>
+        <di:waypoint x="305" y="350"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="MessageFlow_CompletionNotice_di"
+                       bpmnElement="MessageFlow_CompletionNotice">
+        <di:waypoint x="550" y="440"/>
+        <di:waypoint x="960" y="218"/>
+      </bpmndi:BPMNEdge>
+
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>
