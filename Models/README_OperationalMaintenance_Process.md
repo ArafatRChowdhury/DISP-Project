@@ -1,63 +1,83 @@
-Operational Maintenance Process — ProBuild & FixPro
+## Operational Maintenance Process — ProBuild & FixPro
 
-Author: Joel Shelvi
-Sprint: AS-IS Strategic BPMN / Operational BPMN Implementation
+**Author:** Joel Shelvi  
+**Sprint:** AS-IS Strategic BPMN / Operational BPMN Implementation  
+**Role:** BPMN Lead / Project Manager 
 
-Purpose
 
-This BPMN model represents the AS-IS external maintenance process between ProBuild Supplies Ltd and FixPro Ltd. It is designed to map the real-world weekly collaboration cycle for tool servicing, compliance testing and return-to-hire readiness.
 
-The objective is to transform the written case study requirements into an executable operational workflow that later supports Camunda automation and integration with API-driven tool management systems.
+## Alignment & Traceability  
+This operational BPMN aligns with:  
+- **SR Model v1.0 — External Maintenance Requirements**  
+- **SD Model v2.x — Dependencies and Goal/Resource mapping between ProBuild & FixPro**  
 
-Scope
-Included
+This ensures end-to-end traceability from **requirements → strategic design → operational workflow → Camunda implementation**.
 
-- Tagging, logging and preparing tools for maintenance
-- Weekly collection and return cycle
-- Digital checklist and compliance reporting
-- FixPro servicing, testing and labelling
-- Updating portals and resyncing internal systems
 
-Not Included
 
-- Customer booking and hire payment process
-- ProBuild invoicing / finance
-- Detailed technical repair and mechanical steps
+## Purpose  
+This BPMN model represents the **AS-IS external maintenance cycle** between ProBuild Supplies Ltd and FixPro Ltd.  
+It maps the real-world weekly collaboration flow for **tool servicing, compliance testing, reporting and readiness for re-hire**.
 
-Key Actors (Swimlanes)
-Organisation	Role
-ProBuild	Warehouse Staff, Warehouse Supervisor, Operations Manager
-FixPro	Driver, Technicians, Account Manager, Client Portal System
+The objective is to **convert written case study requirements into an executable operational workflow** that prepares the foundation for:
+- Future Camunda automation
+- Integration with API-driven tool management systems
+- Digital service reporting and audit compliance
 
-This aligns directly with the SD and SR models for traceability.
 
-Artefacts (Data Objects Used)
 
--  Digital Handover Checklist
--  Service Completion Report
--  API Sync Update
--  Compliance and Safety Labels
+### Scope
 
-Max artefacts: within the allowed ≤ 8 constraint
+#### **Included**
+- Tagging, logging and preparing tools for maintenance  
+- Weekly collection and return cycle  
+- Digital checklist, compliance handover and reporting  
+- FixPro inspection, servicing, testing & labelling  
+- Updating portals / resyncing internal systems  
+- Return readiness for hire  
 
-Why the Subprocess Is Used
+#### **Not Included**
+- Customer booking & hire payment process  
+- Full repair specification or engineering detail  
+- Finance/credit operations with FinTrust  
+- Business intelligence & long-term fleet optimisation (TO-BE phase)
 
-The FixPro servicing facility is abstracted into a subprocess to keep the model strategic, readable, and aligned to BPMN-2.0 best practice.
 
-KPIs Enabled by the Model
-KPI Requirement	Where Reflected
-90% serviced within 5 days	workflow cycle time
-85% first-time fix	inspection + classification
-100% safety compliance	test + label stage
-Repairs > £50 authorised	gateway decision
-Strategic Value
 
-This model provides the foundation for:
+### Key Actors / Swimlanes
+- ProBuild Warehouse Staff  
+- ProBuild Warehouse Supervisor  
+- ProBuild Operations / Tool Hire Management  
+- FixPro Driver  
+- FixPro Technicians  
+- FixPro Account Manager  
+- FixPro Client Portal System  
 
-Workflow automation
 
-API-based system integration
 
-SLA measurement and dashboarding
+## Data Objects Used
+| Data Artifact | Purpose |
+| Tool Tag / Scan Log | Identify tools requiring maintenance |
+| Digital Handover Checklist | Verify chain of custody |
+| Service & Completion Report | Transparency and record |
+| Repair/Cost Breakdown | Authorisation control |
+| Compliance Test Labels | Safety validation |
+| API Sync Data | System-to-system updating |
+| Ready-to-Hire Confirmation | Return to inventory |
 
-Digital audit trail for compliance
+
+
+### Decision Gateways
+| Gateway | Outcome |
+| Service classification | Routine / Repair / Decommission |
+| Compliance testing | Pass / Fail |
+| Repair cost threshold > £50 | Authorisation required |
+
+
+### Next Steps (TO-BE Workflow)
+- Map automation candidates for user tasks  
+- Define external form requirements (Camunda Forms)  
+- Apply API worker & web service integration patterns  
+
+---
+
