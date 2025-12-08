@@ -16,7 +16,7 @@ This traceability matrix demonstrates alignment from written case study requirem
 | Compliance testing | YES | YES | YES | YES |
 | Repair cost over £50 authorisation | Dependency | YES | Decision point | YES |
 | Service report & completion notice | YES | YES | YES | YES |
-| Update internal systems / API | Dependency | ✔ | Not shown | YES |
+| Update internal systems / API | Dependency | YES | Not shown | YES |
 | Rescan and prepare tools for hire | YES | YES | YES | YES |
 
 
