@@ -1,0 +1,395 @@
+{
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "diagram": {
+    "name": "Welcome Model - External Maintenance Process (SR)",
+    "width": 1675,
+    "height": 891,
+    "customProperties": {
+      "Description": "Model where previously-added requirement nodes are represented as Goals (istar.Goal) so piStar supports loading.\n\nWelcome to the piStar tool version 2.1.0, released on November, 2021! This model describes some of the recent improvements in the tool. Click on the purple elements for further info.\n\nFor help using this tool, please check the Help menu above"
+    }
+  },
+
+  "actors": [
+    {
+      "id": "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3",
+      "text": "Customer",
+      "type": "istar.Actor",
+      "x": 97,
+      "y": 366,
+      "customProperties": {},
+      "nodes": [
+        {
+          "id": "751c46e6-9b07-4ae8-9511-147e5b4a9f3f",
+          "text": "Rent Tool",
+          "type": "istar.Goal",
+          "x": 40,
+          "y": 512,
+          "customProperties": {}
+        },
+        {
+          "id": "1c550432-ecee-447f-ac7b-c08c230f65dd",
+          "text": "Purchase Tools/Materials",
+          "type": "istar.Goal",
+          "x": 55,
+          "y": 87,
+          "customProperties": {}
+        },
+        {
+          "id": "116070fc-3557-4a5c-83f9-79f880e7699c",
+          "text": "Delivery",
+          "type": "istar.Goal",
+          "x": 213,
+          "y": 225,
+          "customProperties": {}
+        },
+        {
+          "id": "8c563997-1e49-4143-9eed-19bed7886f85",
+          "text": "Safe & compliant",
+          "type": "istar.Quality",
+          "x": 138,
+          "y": 527,
+          "customProperties": {}
+        },
+        {
+          "id": "6b9707d8-9932-4498-87a8-9935bfa7fe99",
+          "text": "Payment",
+          "type": "istar.Resource",
+          "x": 142,
+          "y": 161,
+          "customProperties": {}
+        }
+      ]
+    },
+
+    {
+      "id": "22ca4249-2b0e-4c30-be72-7a44d5dbe769",
+      "text": "Tool Hire Process",
+      "type": "istar.Actor",
+      "x": 110,
+      "y": 753,
+      "customProperties": {},
+      "nodes": [
+        {
+          "id": "df27c8fc-b5df-4cb1-afe0-918c940577f4",
+          "text": "Rent Tool (dependency target)",
+          "type": "istar.Goal",
+          "x": 40,
+          "y": 552,
+          "customProperties": {}
+        }
+      ]
+    },
+
+    {
+      "id": "806b9c41-2090-49a2-a402-11bc0cfd9496",
+      "text": "Trade card member",
+      "type": "istar.Actor",
+      "x": 232,
+      "y": 406,
+      "customProperties": {},
+      "nodes": [
+        {
+          "id": "a3b101c0-b714-44ec-a031-b98435b3635e",
+          "text": "Trade card membership",
+          "type": "istar.Resource",
+          "x": 411,
+          "y": 271,
+          "customProperties": {}
+        },
+        {
+          "id": "3db36711-868f-4284-8f58-4e38077d7d03",
+          "text": "Provide Monthly Instalment",
+          "type": "istar.Quality",
+          "x": 341,
+          "y": 493,
+          "customProperties": {}
+        }
+      ]
+    },
+
+    {
+      "id": "9ddd4658-531b-4324-a0ae-f90e805f9c69",
+      "text": "Logistics Team",
+      "type": "istar.Actor",
+      "x": 364,
+      "y": 155,
+      "customProperties": {},
+      "nodes": [
+        {
+          "id": "042592c9-0a6a-4cec-9920-ad2283f0d4b0",
+          "text": "Delivery (receive)",
+          "type": "istar.Goal",
+          "x": 213,
+          "y": 265,
+          "customProperties": {}
+        },
+        {
+          "id": "5da3ed43-1fa5-40e4-8977-4601fc569a01",
+          "text": "Receive Payment (invoice)",
+          "type": "istar.Dependency",
+          "x": 142,
+          "y": 201,
+          "customProperties": {}
+        }
+      ]
+    },
+
+    {
+      "id": "01ec3475-7ef8-41b1-8845-5171b4742059",
+      "text": "Probuild Supplies Ltd",
+      "type": "istar.Actor",
+      "x": 628,
+      "y": 62,
+      "customProperties": {},
+      "nodes": [
+        {
+          "id": "3bc40b23-bdb2-4062-aff0-340b29f5940f",
+          "text": "Stock & Maintain tools",
+          "type": "istar.Goal",
+          "x": 923,
+          "y": 63,
+          "customProperties": {}
+        },
+        {
+          "id": "94a779de-929b-4fc7-ab10-91b354998e7c",
+          "text": "Invoice Summary",
+          "type": "istar.Goal",
+          "x": 713,
+          "y": 789,
+          "customProperties": {}
+        },
+        {
+          "id": "b0025be9-7d45-4fbd-bc96-e48ea0188523",
+          "text": "Exceptions Report",
+          "type": "istar.Goal",
+          "x": 897,
+          "y": 624,
+          "customProperties": {}
+        },
+        {
+          "id": "7f2e4412-b9a3-4f5e-b409-78aa43c90ae2",
+          "text": "Service Summary Report",
+          "type": "istar.Goal",
+          "x": 939,
+          "y": 563,
+          "customProperties": {}
+        },
+        {
+          "id": "abc6a4d0-927f-4d93-8b50-bc79d6ffa254",
+          "text": "Finance payment",
+          "type": "istar.Resource",
+          "x": 503,
+          "y": 318,
+          "customProperties": {}
+        },
+        {
+          "id": "5a12d092-26fd-4b69-abfa-4034cad44f76",
+          "text": "90% turnaround ≤5 business days",
+          "type": "istar.Quality",
+          "x": 1042,
+          "y": 216,
+          "customProperties": {
+            "Description": "SLA performance targets"
+          }
+        },
+        {
+          "id": "7d42b103-5777-4851-a2d0-5f02d43980e1",
+          "text": "First-Time Fix ≥85%",
+          "type": "istar.Quality",
+          "x": 1045,
+          "y": 289,
+          "customProperties": {}
+        },
+        {
+          "id": "c4bd2d0a-ebd4-4298-9ebb-491dd39a46a8",
+          "text": "Compliance Audit Pass Rate 100%",
+          "type": "istar.Quality",
+          "x": 1018,
+          "y": 358,
+          "customProperties": {}
+        }
+      ]
+    },
+
+    {
+      "id": "4080f11b-a3b7-403e-b04b-c14b45939233",
+      "text": "Warehouse",
+      "type": "istar.Actor",
+      "x": 1268,
+      "y": 67,
+      "customProperties": {},
+      "nodes": [
+        {
+          "id": "2ad0be9d-eb88-4e6b-9a4e-3c5368212aae",
+          "text": "Digital handover checklist",
+          "type": "istar.Resource",
+          "x": 1322,
+          "y": 300,
+          "customProperties": {
+            "Description": "Signed digital checklist at handover"
+          }
+        },
+        {
+          "id": "2e118126-71b5-41bb-bd02-dde43df07611",
+          "text": "Weekly Collection (quality)",
+          "type": "istar.Quality",
+          "x": 1404,
+          "y": 236,
+          "customProperties": {}
+        }
+      ]
+    },
+
+    {
+      "id": "bdb42c67-5dd0-4583-ad34-613f57390959",
+      "text": "FixPro",
+      "type": "istar.Actor",
+      "x": 1487,
+      "y": 719,
+      "customProperties": {},
+      "nodes": [
+        {
+          "id": "258f5684-740c-4338-8e3b-d2464c0b82dc",
+          "text": "Tag & Log Tools for Maintenance",
+          "type": "istar.Task",
+          "x": 1141,
+          "y": 153,
+          "customProperties": {}
+        },
+        {
+          "id": "d3e41817-3025-43a2-8d9c-fdf1066dbdf1",
+          "text": "Item Service Report",
+          "type": "istar.Goal",
+          "x": 1447,
+          "y": 180,
+          "customProperties": {}
+        },
+        {
+          "id": "req-0f1a2b3c-0005-4a2b-9f1a-555555555555",
+          "text": "API integration",
+          "type": "istar.Goal",
+          "x": 808,
+          "y": 672,
+          "customProperties": {
+            "Description": "System integration requirement (API)"
+          }
+        },
+        {
+          "id": "req-0f1a2b3c-0006-4a2b-9f1a-666666666666",
+          "text": "Authorisation threshold",
+          "type": "istar.Goal",
+          "x": 971,
+          "y": 513,
+          "customProperties": {
+            "Description": "Financial authorisation condition"
+          }
+        },
+        {
+          "id": "req-0f1a2b3c-0008-4a2b-9f1a-888888888888",
+          "text": "Exceptions & decommissioning",
+          "type": "istar.Goal",
+          "x": 745,
+          "y": 734,
+          "customProperties": {
+            "Description": "Exceptions handling and reporting"
+          }
+        },
+        {
+          "id": "req-0f1a2b3c-0009-4a2b-9f1a-999999999999",
+          "text": "Quarterly reviews",
+          "type": "istar.Goal",
+          "x": 617,
+          "y": 839,
+          "customProperties": {
+            "Description": "Quarterly governance & optimisation requirement"
+          }
+        },
+        {
+          "id": "req-0f1a2b3c-0004-4a2b-9f1a-444444444444",
+          "text": "PAT and compliance testing",
+          "type": "istar.Goal",
+          "x": 1505,
+          "y": 84,
+          "customProperties": {
+            "Description": "Safety & compliance testing requirement (PAT etc.)"
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "eadb6731-637c-4d9b-bd8e-6b81ffb3d30c",
+      "text": "FinTrust UK",
+      "type": "istar.Actor",
+      "x": 519,
+      "y": 442,
+      "customProperties": {},
+      "nodes": [
+        {
+          "id": "3f021074-aaa7-4397-9579-f438c15ea41e",
+          "text": "Monthly instalment (financial)",
+          "type": "istar.Quality",
+          "x": 341,
+          "y": 493,
+          "customProperties": {}
+        }
+      ]
+    },
+
+    {
+      "id": "actor-api",
+      "text": "Online System / API",
+      "type": "istar.Actor",
+      "x": 860,
+      "y": 320,
+      "customProperties": {},
+      "nodes": [
+        {
+          "id": "req-api-node-0001",
+          "text": "API: enable digital handover",
+          "type": "istar.Task",
+          "x": 860,
+          "y": 360,
+          "customProperties": {}
+        }
+      ]
+    }
+  ],
+
+  "links": [
+    { "id": "link-01", "type": "istar.DependencyLink", "source": "751c46e6-9b07-4ae8-9511-147e5b4a9f3f", "target": "df27c8fc-b5df-4cb1-afe0-918c940577f4" },
+    { "id": "link-02", "type": "istar.DependencyLink", "source": "1c550432-ecee-447f-ac7b-c08c230f65dd", "target": "3bc40b23-bdb2-4062-aff0-340b29f5940f" },
+    { "id": "link-03", "type": "istar.DependencyLink", "source": "116070fc-3557-4a5c-83f9-79f880e7699c", "target": "042592c9-0a6a-4cec-9920-ad2283f0d4b0" },
+    { "id": "link-04", "type": "istar.DependencyLink", "source": "6b9707d8-9932-4498-87a8-9935bfa7fe99", "target": "5da3ed43-1fa5-40e4-8977-4601fc569a01" },
+
+    { "id": "link-05", "type": "istar.DependencyLink", "source": "258f5684-740c-4338-8e3b-d2464c0b82dc", "target": "3bc40b23-bdb2-4062-aff0-340b29f5940f" },
+    { "id": "link-06", "type": "istar.DependencyLink", "source": "d3e41817-3025-43a2-8d9c-fdf1066dbdf1", "target": "82f2553c-2731-4c1a-b566-f3cd61ffdb45" },
+
+    { "id": "link-07", "type": "istar.DependencyLink", "source": "2ad0be9d-eb88-4e6b-9a4e-3c5368212aae", "target": "258f5684-740c-4338-8e3b-d2464c0b82dc" },
+    { "id": "link-08", "type": "istar.DependencyLink", "source": "r-service-report", "target": "d3e41817-3025-43a2-8d9c-fdf1066dbdf1" },
+
+    { "id": "link-09", "type": "istar.DependencyLink", "source": "abc6a4d0-927f-4d93-8b50-bc79d6ffa254", "target": "3f021074-aaa7-4397-9579-f438c15ea41e" },
+    { "id": "link-10", "type": "istar.DependencyLink", "source": "req-0f1a2b3c-0005-4a2b-9f1a-555555555555", "target": "01ec3475-7ef8-41b1-8845-5171b4742059" },
+
+    { "id": "link-11", "type": "istar.DependencyLink", "source": "req-0f1a2b3c-0006-4a2b-9f1a-666666666666", "target": "01ec3475-7ef8-41b1-8845-5171b4742059" },
+    { "id": "link-12", "type": "istar.DependencyLink", "source": "req-0f1a2b3c-0008-4a2b-9f1a-888888888888", "target": "01ec3475-7ef8-41b1-8845-5171b4742059" },
+
+    { "id": "link-13", "type": "istar.DependencyLink", "source": "req-0f1a2b3c-0009-4a2b-9f1a-999999999999", "target": "01ec3475-7ef8-41b1-8845-5171b4742059" },
+    { "id": "link-14", "type": "istar.DependencyLink", "source": "req-0f1a2b3c-0004-4a2b-9f1a-444444444444", "target": "4080f11b-a3b7-403e-b04b-c14b45939233" },
+
+    { "id": "link-15", "type": "istar.DependencyLink", "source": "req-api-node-0001", "target": "req-0f1a2b3c-0005-4a2b-9f1a-555555555555" }
+  ],
+
+  "display": {
+    "0730d06e-a60c-43e3-b1ad-c5ce9aae3eb3": { "collapsed": true },
+    "22ca4249-2b0e-4c30-be72-7a44d5dbe769": { "collapsed": true },
+    "806b9c41-2090-49a2-a402-11bc0cfd9496": { "collapsed": true },
+    "9ddd4658-531b-4324-a0ae-f90e805f9c69": { "collapsed": true },
+    "01ec3475-7ef8-41b1-8845-5171b4742059": { "collapsed": true },
+    "4080f11b-a3b7-403e-b04b-c14b45939233": { "collapsed": true },
+    "bdb42c67-5dd0-4583-ad34-613f57390959": { "collapsed": true },
+    "eadb6731-637c-4d9b-bd8e-6b81ffb3d30c": { "collapsed": true },
+    "actor-api": { "collapsed": true }
+  }
+}
