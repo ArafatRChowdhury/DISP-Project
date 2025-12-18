@@ -1,0 +1,119 @@
+{
+  "actors": [
+    {
+      "id": "A1",
+      "text": "Customer",
+      "type": "istar.Actor",
+      "x": 40,
+      "y": 150,
+      "nodes": [
+        { "id": "A1_T1", "text": "Select purchasing channel", "type": "istar.Task", "x": 110, "y": 320 },
+        { "id": "A1_T2", "text": "In-store", "type": "istar.Task", "x": 60, "y": 230 },
+        { "id": "A1_T3", "text": "Online shop", "type": "istar.Task", "x": 170, "y": 230 },
+        { "id": "A1_Q1", "text": "Customer Satisfaction", "type": "istar.Quality", "x": 200, "y": 400 }
+      ]
+    },
+    {
+      "id": "A2",
+      "text": "BuildRight Tools Ltd",
+      "type": "istar.Actor",
+      "x": 310,
+      "y": 90,
+      "nodes": [
+        { "id": "A2_T1", "text": "Assist customer with tool selection", "type": "istar.Task", "x": 560, "y": 100 },
+        { "id": "A2_T2", "text": "Verify stock availability", "type": "istar.Task", "x": 520, "y": 190 },
+        { "id": "A2_Q1", "text": "Well organised service", "type": "istar.Quality", "x": 380, "y": 170 },
+        { "id": "A2_T3", "text": "Request payment method", "type": "istar.Task", "x": 460, "y": 390 },
+        { "id": "A2_G1", "text": "Complete payment", "type": "istar.Goal", "x": 470, "y": 490 },
+        { "id": "A2_Q2", "text": "Payment confirmed", "type": "istar.Quality", "x": 650, "y": 480 },
+        { "id": "A2_T4", "text": "Ask delivery preference", "type": "istar.Task", "x": 470, "y": 560 },
+        { "id": "A2_T5", "text": "Home delivery", "type": "istar.Task", "x": 380, "y": 620 },
+        { "id": "A2_T6", "text": "Collect from store", "type": "istar.Task", "x": 570, "y": 620 },
+        { "id": "A2_Q3", "text": "Operational Readiness", "type": "istar.Quality", "x": 600, "y": 350 }
+      ]
+    },
+    {
+      "id": "A3",
+      "text": "SecurePay UK",
+      "type": "istar.Actor",
+      "x": 805,
+      "y": 459,
+      "nodes": [
+        { "id": "A3_G1", "text": "Authorize transaction", "type": "istar.Goal", "x": 865, "y": 559 },
+        { "id": "A3_T1", "text": "Assess financial risk", "type": "istar.Task", "x": 885, "y": 459 }
+      ]
+    },
+    {
+      "id": "A4",
+      "text": "Warehouse",
+      "type": "istar.Actor",
+      "x": 802,
+      "y": 262,
+      "nodes": [
+        { "id": "A4_G1", "text": "Maintain accurate inventory", "type": "istar.Goal", "x": 912, "y": 262 },
+        { "id": "A4_T1", "text": "Locate requested tool", "type": "istar.Task", "x": 952, "y": 372 },
+        { "id": "A4_T2", "text": "Validate stock records", "type": "istar.Task", "x": 832, "y": 332 },
+        { "id": "A4_R1", "text": "Inventory database", "type": "istar.Resource", "x": 1012, "y": 302 }
+      ]
+    },
+    {
+      "id": "A5",
+      "text": "FixPro Ltd",
+      "type": "istar.Actor",
+      "x": 200,
+      "y": 600,
+      "nodes": [
+        { "id": "A5_T1", "text": "Service tools", "type": "istar.Task", "x": 250, "y": 650 },
+        { "id": "A5_G1", "text": "Compliance Audit Pass Rate", "type": "istar.Goal", "x": 300, "y": 700 },
+        { "id": "A5_Q1", "text": "Minimal Downtime", "type": "istar.Quality", "x": 350, "y": 750 }
+      ]
+    },
+    {
+      "id": "A6",
+      "text": "FinTrust UK",
+      "type": "istar.Actor",
+      "x": 950,
+      "y": 600,
+      "nodes": [
+        { "id": "A6_T1", "text": "Process credit application", "type": "istar.Task", "x": 980, "y": 650 },
+        { "id": "A6_G1", "text": "Provide upfront payment", "type": "istar.Goal", "x": 1020, "y": 700 },
+        { "id": "A6_Q1", "text": "Customer Loyalty", "type": "istar.Quality", "x": 1060, "y": 750 }
+      ]
+    },
+    {
+      "id": "A7",
+      "text": "Tool Hire Manager",
+      "type": "istar.Actor",
+      "x": 600,
+      "y": 700,
+      "nodes": [
+        { "id": "A7_T1", "text": "Authorize repairs > £50", "type": "istar.Task", "x": 620, "y": 750 }
+      ]
+    }
+  ],
+  "dependencies": [
+    { "from": "A2_G1", "to": "A3_G1", "type": "istar.Dependency" },
+    { "from": "A2_T2", "to": "A4_G1", "type": "istar.Dependency" },
+    { "from": "A2_Q3", "to": "A5_Q1", "type": "istar.Dependency" },
+    { "from": "A5_T1", "to": "A7_T1", "type": "istar.Dependency" },
+    { "from": "A2_G1", "to": "A6_G1", "type": "istar.Dependency" }
+  ],
+  "links": [
+    { "from": "A2_T2", "to": "A4_G1", "type": "istar.Contribution", "label": "++" },
+    { "from": "A2_G1", "to": "A2_Q2", "type": "istar.Contribution", "label": "++" },
+    { "from": "A3_T1", "to": "A3_G1", "type": "istar.Contribution", "label": "++" },
+    { "from": "A5_T1", "to": "A5_G1", "type": "istar.Contribution", "label": "++" },
+    { "from": "A5_T1", "to": "A5_Q1", "type": "istar.Contribution", "label": "++" }
+  ],
+  "display": {},
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Thu, 18 Dec 2025 12:40:00 GMT",
+  "diagram": {
+    "width": 1400,
+    "height": 900,
+    "customProperties": {
+      "Description": "Refined SD + SR model for ProBuild case study"
+    }
+  }
+}
