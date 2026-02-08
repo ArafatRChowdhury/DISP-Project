@@ -8,78 +8,119 @@
       "y": 150,
       "nodes": [
         { "id": "A1_T1", "text": "Select purchasing channel", "type": "istar.Task", "x": 110, "y": 320 },
-        { "id": "A1_T2", "text": "In-store", "type": "istar.Task", "x": 60, "y": 230 },
-        { "id": "A1_T3", "text": "Online shop", "type": "istar.Task", "x": 170, "y": 230 },
-        { "id": "A1_Q1", "text": "Customer Satisfaction", "type": "istar.Quality", "x": 200, "y": 400 }
+        { "id": "A1_T2", "text": "Choose in-store purchase", "type": "istar.Task", "x": 60, "y": 230 },
+        { "id": "A1_T3", "text": "Choose online purchase", "type": "istar.Task", "x": 170, "y": 230 },
+        { "id": "A1_Q1", "text": "Customer satisfaction", "type": "istar.Quality", "x": 200, "y": 400 }
       ]
     },
+
     {
       "id": "A2",
-      "text": "BuildRight Tools Ltd",
+      "text": "ProBuild Supplies Ltd",
       "type": "istar.Actor",
-      "x": 310,
-      "y": 90,
+      "x": 300,
+      "y": 80,
       "nodes": [
-        { "id": "A2_T1", "text": "Assist customer with tool selection", "type": "istar.Task", "x": 560, "y": 100 },
+        { "id": "A2_T1", "text": "Assist customer with tool selection", "type": "istar.Task", "x": 520, "y": 100 },
         { "id": "A2_T2", "text": "Verify stock availability", "type": "istar.Task", "x": 520, "y": 190 },
-        { "id": "A2_Q1", "text": "Well organised service", "type": "istar.Quality", "x": 380, "y": 170 },
-        { "id": "A2_T3", "text": "Request payment method", "type": "istar.Task", "x": 460, "y": 390 },
-        { "id": "A2_G1", "text": "Complete payment", "type": "istar.Goal", "x": 470, "y": 490 },
+        { "id": "A2_T3", "text": "Request payment method", "type": "istar.Task", "x": 470, "y": 350 },
+        { "id": "A2_T4", "text": "Ask delivery preference", "type": "istar.Task", "x": 470, "y": 520 },
+        { "id": "A2_T5", "text": "Register tools for external maintenance", "type": "istar.Task", "x": 350, "y": 620 },
+        { "id": "A2_T6", "text": "Prepare tools in Service Bay", "type": "istar.Task", "x": 350, "y": 700 },
+        { "id": "A2_T7", "text": "Generate digital handover checklist", "type": "istar.Task", "x": 350, "y": 780 },
+        { "id": "A2_T8", "text": "Send collection request to FixPro", "type": "istar.Task", "x": 500, "y": 780 },
+        { "id": "A2_T9", "text": "Receive service reports", "type": "istar.Task", "x": 500, "y": 860 },
+        { "id": "A2_T10", "text": "Rescan tools into inventory", "type": "istar.Task", "x": 650, "y": 780 },
+        { "id": "A2_T11", "text": "Update internal tool management system", "type": "istar.Task", "x": 650, "y": 860 },
+
+        { "id": "A2_G1", "text": "Complete payment", "type": "istar.Goal", "x": 470, "y": 440 },
+        { "id": "A2_G2", "text": "Maintain tool hire availability", "type": "istar.Goal", "x": 300, "y": 900 },
+        { "id": "A2_G3", "text": "Ensure tool safety compliance", "type": "istar.Goal", "x": 500, "y": 900 },
+
+        { "id": "A2_Q1", "text": "Well organised service", "type": "istar.Quality", "x": 350, "y": 170 },
         { "id": "A2_Q2", "text": "Payment confirmed", "type": "istar.Quality", "x": 650, "y": 480 },
-        { "id": "A2_T4", "text": "Ask delivery preference", "type": "istar.Task", "x": 470, "y": 560 },
-        { "id": "A2_T5", "text": "Home delivery", "type": "istar.Task", "x": 380, "y": 620 },
-        { "id": "A2_T6", "text": "Collect from store", "type": "istar.Task", "x": 570, "y": 620 },
-        { "id": "A2_Q3", "text": "Operational Readiness", "type": "istar.Quality", "x": 600, "y": 350 }
+        { "id": "A2_Q3", "text": "Operational readiness", "type": "istar.Quality", "x": 650, "y": 350 },
+        { "id": "A2_Q4", "text": "High tool availability", "type": "istar.Quality", "x": 300, "y": 960 },
+        { "id": "A2_Q5", "text": "Efficient service turnaround", "type": "istar.Quality", "x": 500, "y": 960 },
+
+        { "id": "A2_R1", "text": "Tool management system", "type": "istar.Resource", "x": 760, "y": 780 },
+        { "id": "A2_R2", "text": "Maintenance register database", "type": "istar.Resource", "x": 760, "y": 860 },
+        { "id": "A2_R3", "text": "Service Bay storage area", "type": "istar.Resource", "x": 300, "y": 1040 }
       ]
     },
+
     {
       "id": "A3",
       "text": "SecurePay UK",
       "type": "istar.Actor",
-      "x": 805,
-      "y": 459,
+      "x": 900,
+      "y": 420,
       "nodes": [
-        { "id": "A3_G1", "text": "Authorize transaction", "type": "istar.Goal", "x": 865, "y": 559 },
-        { "id": "A3_T1", "text": "Assess financial risk", "type": "istar.Task", "x": 885, "y": 459 }
+        { "id": "A3_T1", "text": "Assess financial risk", "type": "istar.Task", "x": 920, "y": 450 },
+        { "id": "A3_G1", "text": "Authorize transaction", "type": "istar.Goal", "x": 920, "y": 550 }
       ]
     },
+
     {
       "id": "A4",
       "text": "Warehouse",
       "type": "istar.Actor",
-      "x": 802,
-      "y": 262,
+      "x": 900,
+      "y": 200,
       "nodes": [
-        { "id": "A4_G1", "text": "Maintain accurate inventory", "type": "istar.Goal", "x": 912, "y": 262 },
-        { "id": "A4_T1", "text": "Locate requested tool", "type": "istar.Task", "x": 952, "y": 372 },
-        { "id": "A4_T2", "text": "Validate stock records", "type": "istar.Task", "x": 832, "y": 332 },
-        { "id": "A4_R1", "text": "Inventory database", "type": "istar.Resource", "x": 1012, "y": 302 }
+        { "id": "A4_T1", "text": "Store tools awaiting maintenance", "type": "istar.Task", "x": 900, "y": 260 },
+        { "id": "A4_T2", "text": "Locate requested tool", "type": "istar.Task", "x": 1020, "y": 340 },
+        { "id": "A4_T3", "text": "Validate stock records", "type": "istar.Task", "x": 900, "y": 320 },
+        { "id": "A4_T4", "text": "Prepare tools for FixPro collection", "type": "istar.Task", "x": 1020, "y": 420 },
+        { "id": "A4_T5", "text": "Rescan returned tools into inventory", "type": "istar.Task", "x": 1020, "y": 500 },
+        { "id": "A4_T6", "text": "Relocate tools to Ready-to-Hire storage", "type": "istar.Task", "x": 1020, "y": 580 },
+
+        { "id": "A4_G1", "text": "Maintain accurate inventory", "type": "istar.Goal", "x": 1020, "y": 220 },
+
+        { "id": "A4_R1", "text": "Inventory database", "type": "istar.Resource", "x": 1150, "y": 300 },
+        { "id": "A4_R2", "text": "Warehouse scanning system", "type": "istar.Resource", "x": 1150, "y": 380 }
       ]
     },
+
     {
       "id": "A5",
       "text": "FixPro Ltd",
       "type": "istar.Actor",
-      "x": 200,
+      "x": 150,
       "y": 600,
       "nodes": [
-        { "id": "A5_T1", "text": "Service tools", "type": "istar.Task", "x": 250, "y": 650 },
-        { "id": "A5_G1", "text": "Compliance Audit Pass Rate", "type": "istar.Goal", "x": 300, "y": 700 },
-        { "id": "A5_Q1", "text": "Minimal Downtime", "type": "istar.Quality", "x": 350, "y": 750 }
+        { "id": "A5_T1", "text": "Receive tools for servicing", "type": "istar.Task", "x": 200, "y": 650 },
+        { "id": "A5_T2", "text": "Perform inspection and diagnostics", "type": "istar.Task", "x": 200, "y": 720 },
+        { "id": "A5_T3", "text": "Classify maintenance type", "type": "istar.Task", "x": 200, "y": 790 },
+        { "id": "A5_T4", "text": "Perform repair or routine maintenance", "type": "istar.Task", "x": 200, "y": 860 },
+        { "id": "A5_T5", "text": "Perform compliance testing and labelling", "type": "istar.Task", "x": 350, "y": 720 },
+        { "id": "A5_T6", "text": "Generate service reports", "type": "istar.Task", "x": 350, "y": 790 },
+        { "id": "A5_T7", "text": "Return serviced tools", "type": "istar.Task", "x": 350, "y": 860 },
+
+        { "id": "A5_G1", "text": "Compliance audit pass rate", "type": "istar.Goal", "x": 350, "y": 930 },
+        { "id": "A5_G2", "text": "Meet service turnaround time", "type": "istar.Goal", "x": 200, "y": 930 },
+
+        { "id": "A5_Q1", "text": "Minimal downtime", "type": "istar.Quality", "x": 350, "y": 1000 },
+        { "id": "A5_Q2", "text": "Repair quality assurance", "type": "istar.Quality", "x": 200, "y": 1000 }
       ]
     },
+
     {
       "id": "A6",
       "text": "FinTrust UK",
       "type": "istar.Actor",
-      "x": 950,
+      "x": 1100,
       "y": 600,
       "nodes": [
-        { "id": "A6_T1", "text": "Process credit application", "type": "istar.Task", "x": 980, "y": 650 },
-        { "id": "A6_G1", "text": "Provide upfront payment", "type": "istar.Goal", "x": 1020, "y": 700 },
-        { "id": "A6_Q1", "text": "Customer Loyalty", "type": "istar.Quality", "x": 1060, "y": 750 }
+        { "id": "A6_T1", "text": "Process credit application", "type": "istar.Task", "x": 1100, "y": 650 },
+        { "id": "A6_T2", "text": "Approve finance eligibility", "type": "istar.Task", "x": 1100, "y": 720 },
+
+        { "id": "A6_G1", "text": "Provide upfront payment", "type": "istar.Goal", "x": 1100, "y": 800 },
+
+        { "id": "A6_Q1", "text": "Customer loyalty", "type": "istar.Quality", "x": 1100, "y": 880 }
       ]
     },
+
     {
       "id": "A7",
       "text": "Tool Hire Manager",
@@ -87,33 +128,35 @@
       "x": 600,
       "y": 700,
       "nodes": [
-        { "id": "A7_T1", "text": "Authorize repairs > £50", "type": "istar.Task", "x": 620, "y": 750 }
+        { "id": "A7_T1", "text": "Authorize repairs exceeding £50", "type": "istar.Task", "x": 620, "y": 750 }
       ]
     }
   ],
+
   "dependencies": [
     { "from": "A2_G1", "to": "A3_G1", "type": "istar.Dependency" },
     { "from": "A2_T2", "to": "A4_G1", "type": "istar.Dependency" },
-    { "from": "A2_Q3", "to": "A5_Q1", "type": "istar.Dependency" },
-    { "from": "A5_T1", "to": "A7_T1", "type": "istar.Dependency" },
+    { "from": "A2_G2", "to": "A5_G1", "type": "istar.Dependency" },
+    { "from": "A5_T4", "to": "A7_T1", "type": "istar.Dependency" },
     { "from": "A2_G1", "to": "A6_G1", "type": "istar.Dependency" }
   ],
+
   "links": [
     { "from": "A2_T2", "to": "A4_G1", "type": "istar.Contribution", "label": "++" },
     { "from": "A2_G1", "to": "A2_Q2", "type": "istar.Contribution", "label": "++" },
     { "from": "A3_T1", "to": "A3_G1", "type": "istar.Contribution", "label": "++" },
-    { "from": "A5_T1", "to": "A5_G1", "type": "istar.Contribution", "label": "++" },
-    { "from": "A5_T1", "to": "A5_Q1", "type": "istar.Contribution", "label": "++" }
+    { "from": "A5_T4", "to": "A5_G1", "type": "istar.Contribution", "label": "++" },
+    { "from": "A5_T4", "to": "A5_Q1", "type": "istar.Contribution", "label": "++" }
   ],
+
   "display": {},
   "tool": "pistar.2.1.0",
   "istar": "2.0",
-  "saveDate": "Thu, 18 Dec 2025 12:40:00 GMT",
   "diagram": {
-    "width": 1400,
-    "height": 900,
+    "width": 1500,
+    "height": 1100,
     "customProperties": {
-      "Description": "Refined SD + SR model for ProBuild case study"
+      "Description": "Updated SR model aligned with BPMN external maintenance lifecycle"
     }
   }
 }
