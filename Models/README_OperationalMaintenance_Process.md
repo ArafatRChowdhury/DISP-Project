@@ -13,6 +13,11 @@ This operational BPMN aligns with:
 
 This ensures end-to-end traceability from **requirements → strategic design → operational workflow → Camunda implementation**.
 
+## Modelling Approach Documentation
+
+Detailed BPMN modelling methodology, task-type justification, and design rationale are documented in:
+
+- BPMN_Modelling_Approach_and_Thought_Process.docx
 
 
 ## Purpose  
