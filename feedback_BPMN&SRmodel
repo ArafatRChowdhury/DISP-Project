@@ -1,0 +1,20 @@
+
+Operational model DISP 16/03
+
+expand the model further, needs to have all the actors, actions and processes included in the project
+pools are the actors, departments need to be lanes within each actor
+link the pools(actors) with each other so that they share tasks and endpoints so that there are no loose ends(no tasks on their own)
+
+add user forms for the tasks that need them
+
+add service tasks
+
+sr model iStar
+
+read the brief to find the missing tasks and roles to finish the model
+actors: 
+customer: shops for the tools and can do in-store or online(probuild delivers them using their vans)
+pro build: has the tools which are given to the customer, fix pro repairs the tools for them, fin trust are their financing partner who help them with finance if a trade card member chooses to do so
+fix pro: repairs the tools that pro build gives them
+fin trust: gives probuild the financing money which can be used by card trade members and needs to be paid back to fin trust in monthly payments
+
