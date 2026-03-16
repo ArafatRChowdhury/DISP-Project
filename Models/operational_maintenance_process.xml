@@ -1,305 +1,324 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_OperationalMaintenance" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="1679805" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
-  <process id="OperationalMaintenance_ProBuild" name="Operational External Maintenance – ProBuild" isExecutable="true">
-    <dataObjectReference id="Data_PB_ToolRegister" name="Tool Register / Scan Log" />
-    <dataObjectReference id="Data_PB_HandoverChecklist" name="Digital Handover Checklist" />
-    <dataObjectReference id="Data_PB_ServiceReports" name="Service Reports from FixPro" />
-    <dataObjectReference id="Data_PB_IMSUpdate" name="IMS Update / Inventory Record" />
-    <sequenceFlow id="PB_Flow_7" sourceRef="Task_RescanAndRelocate" targetRef="End_ProBuild" />
-    <sequenceFlow id="PB_Flow_4" sourceRef="Task_GenerateChecklist" targetRef="Task_SendCollectionRequest" />
-    <sequenceFlow id="PB_Flow_4b" sourceRef="Task_SendCollectionRequest" targetRef="Task_ReceiveCompletionNotice" />
-    <sequenceFlow id="PB_Flow_3" sourceRef="Task_PrepareServiceBay" targetRef="Task_GenerateChecklist" />
-    <sequenceFlow id="PB_Flow_2" sourceRef="Task_RegisterTools" targetRef="Task_PrepareServiceBay" />
-    <sequenceFlow id="PB_Flow_1" sourceRef="Start_ProBuild" targetRef="Task_RegisterTools" />
-    <sequenceFlow id="PB_Flow_5" sourceRef="Task_ReceiveCompletionNotice" targetRef="End_ProBuild" />
-    <userTask id="Task_RegisterTools" name="Register tools for external maintenance" camunda:assignee="warehouse_staff">
-      <incoming>PB_Flow_1</incoming>
-      <outgoing>PB_Flow_2</outgoing>
-    </userTask>
-    <startEvent id="Start_ProBuild" name="Start maintenance cycle">
-      <outgoing>PB_Flow_1</outgoing>
-    </startEvent>
-    <sendTask id="Task_SendCollectionRequest" name="Send collection request to FixPro" camunda:type="external" camunda:topic="sendCollectionRequest">
-      <extensionElements>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="7a6e48e" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <bpmn:collaboration id="Collaboration_13oinbt" name="operational_maintenance_process">
+    <bpmn:participant id="Participant_03xwurv" name="ProBuild Supplies LTD" processRef="Process_07epuuk" />
+    <bpmn:participant id="Participant_1mtqrgs" name="Fix Pro LTD" processRef="Process_0heenam" />
+    <bpmn:messageFlow id="Flow_1u9n18o" name="Completion notice &#38; reports" sourceRef="Activity_1t8laba" targetRef="Task_ReceiveCompletionNotice" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_07epuuk" name="New BPMN diagram" isExecutable="true">
+    <bpmn:userTask id="Task_GenerateChecklist" name="Genrate digital handover checklist">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:formDefinition formId="Form_GenerateChecklist" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0nh0bwr</bpmn:incoming>
+      <bpmn:outgoing>Flow_1itglqn</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:manualTask id="Task_PrepareServiceBay" name="Prepare Tools in Service Bay">
+      <bpmn:incoming>Flow_1h9y313</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nh0bwr</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:receiveTask id="Task_ReceiveCompletionNotice" name="Recieve completion notice &#38; service reports" messageRef="Message_02d1jov">
+      <bpmn:incoming>Flow_0i4jsw0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1s4wt5r</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:userTask id="Task_RegisterTools" name="Register tools for external maintenance">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formId="Form_RegisterTools" />
+        <zeebe:userTask />
+        <zeebe:ioMapping>
+          <zeebe:input target="InputVariable_0fi72fk" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0p9d02n</bpmn:incoming>
+      <bpmn:outgoing>Flow_1h9y313</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_RescanAndRelocate" name="Rescan &#38; relocate tools to Ready-to Hire area">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formId="Form_RescanRelocate" />
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1yuuxo1</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ym46ko</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1e2exqk</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="Task_SendCollectionRequest" name="send collection request to FixPro">
+      <bpmn:extensionElements>
         <zeebe:taskDefinition type="sendCollectionRequest" />
-      </extensionElements>
-      <incoming>PB_Flow_4</incoming>
-    </sendTask>
-    <sequenceFlow id="Flow_1la5xve" sourceRef="Task_UpdateIMS" targetRef="Task_RescanAndRelocate" />
-    <sequenceFlow id="Flow_0afqjw3" sourceRef="Task_RescanAndRelocate" targetRef="Task_UpdateIMS" />
-    <userTask id="Task_GenerateChecklist" name="Generate digital handover checklist" camunda:assignee="warehouse_supervisor">
-      <incoming>PB_Flow_3</incoming>
-      <outgoing>PB_Flow_4</outgoing>
-    </userTask>
-    <manualTask id="Task_PrepareServiceBay" name="Prepare tools in Service Bay">
-      <incoming>PB_Flow_2</incoming>
-      <outgoing>PB_Flow_3</outgoing>
-    </manualTask>
-    <userTask id="Task_RescanAndRelocate" name="Rescan &#38; relocate tools to Ready-to-Hire area" camunda:assignee="warehouse_staff">
-      <incoming>Flow_1la5xve</incoming>
-      <outgoing>PB_Flow_7</outgoing>
-      <outgoing>Flow_0afqjw3</outgoing>
-    </userTask>
-    <serviceTask id="Task_UpdateIMS" name="Update internal tool management system (API sync)" camunda:type="external" camunda:topic="syncServiceData">
-      <extensionElements>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1itglqn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0i4jsw0</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:startEvent id="StartEvent_1" name="Start Maintenenace Cycle">
+      <bpmn:outgoing>Flow_0p9d02n</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Task_UpdateIMS" name="Update internal tool management system (API sync)">
+      <bpmn:extensionElements>
         <zeebe:taskDefinition type="syncServiceData" />
-      </extensionElements>
-      <incoming>Flow_0afqjw3</incoming>
-      <outgoing>Flow_1la5xve</outgoing>
-    </serviceTask>
-    <endEvent id="End_ProBuild" name="Tools ready to hire">
-      <incoming>PB_Flow_7</incoming>
-      <incoming>PB_Flow_5</incoming>
-    </endEvent>
-    <receiveTask id="Task_ReceiveCompletionNotice" name="Receive completion notice &#38; service reports" messageRef="Message_02d1jov">
-      <incoming>PB_Flow_4b</incoming>
-      <outgoing>PB_Flow_5</outgoing>
-    </receiveTask>
-  </process>
-  <collaboration id="Collaboration_OperationalMaintenance" name="ProBuild–FixPro Operational Collaboration">
-    <participant id="Participant_ProBuild" name="ProBuild Supplies Ltd" processRef="OperationalMaintenance_ProBuild" />
-    <participant id="Participant_FixPro" name="FixPro Ltd" processRef="OperationalMaintenance_FixPro" />
-    <messageFlow id="MessageFlow_CollectionRequest" name="Collection request" sourceRef="Task_SendCollectionRequest" targetRef="Task_ReceiveCollectionRequest" />
-    <messageFlow id="MessageFlow_CompletionNotice" name="Completion notice &#38; reports" sourceRef="Task_SendCompletionNotice" targetRef="Task_ReceiveCompletionNotice" />
-  </collaboration>
-  <message id="Message_3eoe9cl" name="Message_3eoe9cl" />
-  <message id="Message_0hsdues" name="collectionRequestId">
-    <extensionElements>
-      <zeebe:subscription correlationKey="=collectionRequestId" />
-    </extensionElements>
-  </message>
-  <message id="Message_22plhfk" name="CollectionRequest">
-    <extensionElements>
-      <zeebe:subscription correlationKey="=collectionRequestId" />
-    </extensionElements>
-  </message>
-  <message id="Message_02d1jov" name="CompletionNotice">
-    <extensionElements>
-      <zeebe:subscription correlationKey="=CompletionNoticeId&#10;" />
-    </extensionElements>
-  </message>
-  <process id="OperationalMaintenance_FixPro" name="Operational External Maintenance – FixPro" isExecutable="true">
-    <dataObjectReference id="Data_FX_ServiceSummary" name="Service Summary Report" />
-    <dataObjectReference id="Data_FX_Exceptions" name="Exceptions Report" />
-    <dataObjectReference id="Data_FX_ComplianceLabels" name="Compliance Labels" />
-    <dataObjectReference id="Data_FX_InvoiceData" name="Invoice / Cost Breakdown" />
-    <sequenceFlow id="FP_Flow_3" sourceRef="Task_ScheduleCollection" targetRef="Task_CollectTools" />
-    <sequenceFlow id="FP_Flow_2" sourceRef="Task_ReceiveCollectionRequest" targetRef="Task_ScheduleCollection" />
-    <sequenceFlow id="FP_Flow_1" sourceRef="Start_FixPro" targetRef="Task_ReceiveCollectionRequest" />
-    <sequenceFlow id="Flow_0f952ic" sourceRef="Task_SendCompletionNotice" targetRef="Task_UpdatePortal" />
-    <sequenceFlow id="FP_Flow_6" sourceRef="Task_UpdatePortal" targetRef="Task_SendCompletionNotice" />
-    <sequenceFlow id="FP_Flow_7" sourceRef="Task_SendCompletionNotice" targetRef="End_FixPro" />
-    <startEvent id="Start_FixPro" name="Collection request received">
-      <outgoing>FP_Flow_1</outgoing>
-    </startEvent>
-    <serviceTask id="Task_UpdatePortal" name="Update FixPro client portal &#38; generate reports" camunda:type="external" camunda:topic="updateClientPortal">
-      <extensionElements>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1e2exqk</bpmn:incoming>
+      <bpmn:outgoing>Flow_1yuuxo1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:parallelGateway id="Gateway_12nmmu4">
+      <bpmn:incoming>Flow_1ym46ko</bpmn:incoming>
+      <bpmn:incoming>Flow_1s4wt5r</bpmn:incoming>
+      <bpmn:outgoing>Flow_0asugkp</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:endEvent id="End_ProBuild" name="Tools ready to hire">
+      <bpmn:incoming>Flow_0asugkp</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0nh0bwr" sourceRef="Task_PrepareServiceBay" targetRef="Task_GenerateChecklist" />
+    <bpmn:sequenceFlow id="Flow_1itglqn" sourceRef="Task_GenerateChecklist" targetRef="Task_SendCollectionRequest" />
+    <bpmn:sequenceFlow id="Flow_1h9y313" sourceRef="Task_RegisterTools" targetRef="Task_PrepareServiceBay" />
+    <bpmn:sequenceFlow id="Flow_0i4jsw0" sourceRef="Task_SendCollectionRequest" targetRef="Task_ReceiveCompletionNotice" />
+    <bpmn:sequenceFlow id="Flow_1s4wt5r" sourceRef="Task_ReceiveCompletionNotice" targetRef="Gateway_12nmmu4" />
+    <bpmn:sequenceFlow id="Flow_0p9d02n" sourceRef="StartEvent_1" targetRef="Task_RegisterTools" />
+    <bpmn:sequenceFlow id="Flow_1yuuxo1" sourceRef="Task_UpdateIMS" targetRef="Task_RescanAndRelocate" />
+    <bpmn:sequenceFlow id="Flow_1ym46ko" sourceRef="Task_RescanAndRelocate" targetRef="Gateway_12nmmu4" />
+    <bpmn:sequenceFlow id="Flow_1e2exqk" sourceRef="Task_RescanAndRelocate" targetRef="Task_UpdateIMS" />
+    <bpmn:sequenceFlow id="Flow_0asugkp" sourceRef="Gateway_12nmmu4" targetRef="End_ProBuild" />
+  </bpmn:process>
+  <bpmn:process id="Process_0heenam" isExecutable="false">
+    <bpmn:manualTask id="Task_CollectTools" name="Collect tools from ProBuild">
+      <bpmn:incoming>Flow_08ymje8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wlkv1g</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:startEvent id="Start_FixPro" name="Collection request received">
+      <bpmn:outgoing>Flow_12owa7j</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:receiveTask id="Activity_0jjor8w" name="Recieve collection request from ProBuild">
+      <bpmn:incoming>Flow_12owa7j</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ff21o2</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:userTask id="Task_ScheduleCollection" name="Schedule collection visit">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0ff21o2</bpmn:incoming>
+      <bpmn:outgoing>Flow_08ymje8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="Activity_1t8laba" name="Send completion notice &#38; reports to ProBuild">
+      <bpmn:incoming>Flow_0cx5spv</bpmn:incoming>
+      <bpmn:outgoing>Flow_07taicl</bpmn:outgoing>
+      <bpmn:outgoing>Flow_05kxcfs</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:manualTask id="Activity_0n0lhij" name="Service tools at FixPro facility">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0wlkv1g</bpmn:incoming>
+      <bpmn:outgoing>Flow_101iusd</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:parallelGateway id="Gateway_115eaak">
+      <bpmn:incoming>Flow_07taicl</bpmn:incoming>
+      <bpmn:incoming>Flow_101iusd</bpmn:incoming>
+      <bpmn:outgoing>Flow_1yc7rst</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:endEvent id="Event_18g03nj" name="Service Completed &#38; reported">
+      <bpmn:incoming>Flow_1yc7rst</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Task_UpdatePortal" name="Update FixPro client portal &#38; generate reports">
+      <bpmn:extensionElements>
         <zeebe:taskDefinition type="updateClientPortal" />
-      </extensionElements>
-      <incoming>Flow_0f952ic</incoming>
-      <outgoing>FP_Flow_6</outgoing>
-    </serviceTask>
-    <sendTask id="Task_SendCompletionNotice" name="Send completion notice &#38; reports to ProBuild" camunda:type="external" camunda:topic="sendCompletionNotice">
-      <extensionElements>
-        <zeebe:taskDefinition type="sendCompletionNotice" />
-      </extensionElements>
-      <incoming>FP_Flow_6</incoming>
-      <outgoing>Flow_0f952ic</outgoing>
-      <outgoing>FP_Flow_7</outgoing>
-    </sendTask>
-    <receiveTask id="Task_ReceiveCollectionRequest" name="Receive collection request from ProBuild" messageRef="Message_22plhfk">
-      <incoming>FP_Flow_1</incoming>
-      <outgoing>FP_Flow_2</outgoing>
-    </receiveTask>
-    <userTask id="Task_ScheduleCollection" name="Schedule collection visit" camunda:assignee="fixpro_planner">
-      <incoming>FP_Flow_2</incoming>
-      <outgoing>FP_Flow_3</outgoing>
-    </userTask>
-    <manualTask id="Task_CollectTools" name="Collect tools from ProBuild">
-      <incoming>FP_Flow_3</incoming>
-      <outgoing>Flow_169or33</outgoing>
-      <outgoing>Flow_1r7sma5</outgoing>
-    </manualTask>
-    <sequenceFlow id="Flow_169or33" sourceRef="Task_CollectTools" targetRef="End_FixPro" />
-    <endEvent id="End_FixPro" name="Service completed &#38; reported">
-      <incoming>FP_Flow_7</incoming>
-      <incoming>Flow_169or33</incoming>
-      <incoming>Flow_0mfzli4</incoming>
-    </endEvent>
-    <manualTask id="Activity_1sim0tz" name="Service tools at FixPro facility">
-      <incoming>Flow_1r7sma5</incoming>
-      <outgoing>Flow_0mfzli4</outgoing>
-    </manualTask>
-    <sequenceFlow id="Flow_1r7sma5" sourceRef="Task_CollectTools" targetRef="Activity_1sim0tz" />
-    <sequenceFlow id="Flow_0mfzli4" sourceRef="Activity_1sim0tz" targetRef="End_FixPro" />
-  </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_Operational">
-    <bpmndi:BPMNPlane id="BPMNPlane_Operational" bpmnElement="Collaboration_OperationalMaintenance">
-      <bpmndi:BPMNShape id="Participant_ProBuild_di" bpmnElement="Participant_ProBuild" isHorizontal="true">
-        <dc:Bounds x="-59" y="30" width="1174" height="250" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_05kxcfs</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cx5spv</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_08ymje8" sourceRef="Task_ScheduleCollection" targetRef="Task_CollectTools" />
+    <bpmn:sequenceFlow id="Flow_0wlkv1g" sourceRef="Task_CollectTools" targetRef="Activity_0n0lhij" />
+    <bpmn:sequenceFlow id="Flow_12owa7j" sourceRef="Start_FixPro" targetRef="Activity_0jjor8w" />
+    <bpmn:sequenceFlow id="Flow_0ff21o2" sourceRef="Activity_0jjor8w" targetRef="Task_ScheduleCollection" />
+    <bpmn:sequenceFlow id="Flow_0cx5spv" sourceRef="Task_UpdatePortal" targetRef="Activity_1t8laba" />
+    <bpmn:sequenceFlow id="Flow_07taicl" sourceRef="Activity_1t8laba" targetRef="Gateway_115eaak" />
+    <bpmn:sequenceFlow id="Flow_05kxcfs" sourceRef="Activity_1t8laba" targetRef="Task_UpdatePortal" />
+    <bpmn:sequenceFlow id="Flow_101iusd" sourceRef="Activity_0n0lhij" targetRef="Gateway_115eaak" />
+    <bpmn:sequenceFlow id="Flow_1yc7rst" sourceRef="Gateway_115eaak" targetRef="Event_18g03nj" />
+  </bpmn:process>
+  <bpmn:message id="Message_02d1jov" name="CompletionNotice">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=CompletionNoticeId&#10;" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_13oinbt">
+      <bpmndi:BPMNShape id="Participant_03xwurv_di" bpmnElement="Participant_03xwurv" isHorizontal="true">
+        <dc:Bounds x="160" y="78" width="1060" height="312" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_RegisterTools_di" bpmnElement="Task_RegisterTools">
-        <dc:Bounds x="120" y="62" width="120" height="56" />
+      <bpmndi:BPMNShape id="Activity_1rjf9wi_di" bpmnElement="Task_GenerateChecklist">
+        <dc:Bounds x="680" y="138" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Start_ProBuild_di" bpmnElement="Start_ProBuild">
-        <dc:Bounds x="2" y="62" width="36" height="36" />
+      <bpmndi:BPMNShape id="Activity_1galuqq_di" bpmnElement="Task_PrepareServiceBay">
+        <dc:Bounds x="510" y="138" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0k4azg5_di" bpmnElement="Task_ReceiveCompletionNotice">
+        <dc:Bounds x="1000" y="290" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_139ihk2_di" bpmnElement="Task_RegisterTools">
+        <dc:Bounds x="350" y="138" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1q4i199_di" bpmnElement="Task_RescanAndRelocate">
+        <dc:Bounds x="510" y="280" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1aigu9x_di" bpmnElement="Task_SendCollectionRequest">
+        <dc:Bounds x="840" y="138" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="210" y="160" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="-25" y="98" width="90" height="27" />
+          <dc:Bounds x="193" y="203" width="70" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_SendCollectionRequest_di" bpmnElement="Task_SendCollectionRequest">
-        <dc:Bounds x="675" y="62" width="150" height="56" />
+      <bpmndi:BPMNShape id="Activity_1kqbvj3_di" bpmnElement="Task_UpdateIMS">
+        <dc:Bounds x="220" y="280" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_GenerateChecklist_di" bpmnElement="Task_GenerateChecklist">
-        <dc:Bounds x="470" y="62" width="140" height="56" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1m9bhbx_di" bpmnElement="Task_PrepareServiceBay">
-        <dc:Bounds x="290" y="62" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_RescanAndRelocate_di" bpmnElement="Task_RescanAndRelocate">
-        <dc:Bounds x="280" y="162" width="180" height="56" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_UpdateIMS_di" bpmnElement="Task_UpdateIMS">
-        <dc:Bounds x="45" y="162" width="150" height="56" />
+      <bpmndi:BPMNShape id="Gateway_12nmmu4_di" bpmnElement="Gateway_12nmmu4">
+        <dc:Bounds x="785" y="265" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="End_ProBuild_di" bpmnElement="End_ProBuild">
-        <dc:Bounds x="542" y="172" width="36" height="36" />
+        <dc:Bounds x="792" y="342" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="515" y="208" width="90" height="14" />
+          <dc:Bounds x="765" y="378" width="90" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_ReceiveCompletionNotice_di" bpmnElement="Task_ReceiveCompletionNotice">
-        <dc:Bounds x="855" y="172" width="170" height="56" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="PB_Flow_7_di" bpmnElement="PB_Flow_7">
-        <di:waypoint x="460" y="190" />
-        <di:waypoint x="542" y="190" />
+      <bpmndi:BPMNEdge id="Flow_0nh0bwr_di" bpmnElement="Flow_0nh0bwr">
+        <di:waypoint x="610" y="178" />
+        <di:waypoint x="680" y="178" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="PB_Flow_4_di" bpmnElement="PB_Flow_4">
-        <di:waypoint x="610" y="90" />
-        <di:waypoint x="675" y="90" />
+      <bpmndi:BPMNEdge id="Flow_1itglqn_di" bpmnElement="Flow_1itglqn">
+        <di:waypoint x="780" y="178" />
+        <di:waypoint x="840" y="178" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="PB_Flow_4b_di" bpmnElement="PB_Flow_4b">
-        <di:waypoint x="825" y="90" />
-        <di:waypoint x="940" y="90" />
-        <di:waypoint x="940" y="172" />
+      <bpmndi:BPMNEdge id="Flow_1h9y313_di" bpmnElement="Flow_1h9y313">
+        <di:waypoint x="450" y="178" />
+        <di:waypoint x="510" y="178" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="PB_Flow_3_di" bpmnElement="PB_Flow_3">
-        <di:waypoint x="390" y="90" />
-        <di:waypoint x="470" y="90" />
+      <bpmndi:BPMNEdge id="Flow_0i4jsw0_di" bpmnElement="Flow_0i4jsw0">
+        <di:waypoint x="940" y="178" />
+        <di:waypoint x="1050" y="178" />
+        <di:waypoint x="1050" y="290" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="PB_Flow_2_di" bpmnElement="PB_Flow_2">
-        <di:waypoint x="240" y="80" />
-        <di:waypoint x="290" y="80" />
+      <bpmndi:BPMNEdge id="Flow_1s4wt5r_di" bpmnElement="Flow_1s4wt5r">
+        <di:waypoint x="1000" y="330" />
+        <di:waypoint x="953" y="330" />
+        <di:waypoint x="953" y="290" />
+        <di:waypoint x="835" y="290" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="PB_Flow_1_di" bpmnElement="PB_Flow_1">
-        <di:waypoint x="38" y="80" />
-        <di:waypoint x="120" y="80" />
+      <bpmndi:BPMNEdge id="Flow_0p9d02n_di" bpmnElement="Flow_0p9d02n">
+        <di:waypoint x="246" y="178" />
+        <di:waypoint x="350" y="178" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="PB_Flow_5_di" bpmnElement="PB_Flow_5">
-        <di:waypoint x="855" y="200" />
-        <di:waypoint x="712" y="200" />
-        <di:waypoint x="712" y="190" />
-        <di:waypoint x="578" y="190" />
+      <bpmndi:BPMNEdge id="Flow_1yuuxo1_di" bpmnElement="Flow_1yuuxo1">
+        <di:waypoint x="320" y="320" />
+        <di:waypoint x="510" y="320" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1la5xve_di" bpmnElement="Flow_1la5xve">
-        <di:waypoint x="195" y="190" />
-        <di:waypoint x="280" y="190" />
+      <bpmndi:BPMNEdge id="Flow_1ym46ko_di" bpmnElement="Flow_1ym46ko">
+        <di:waypoint x="610" y="320" />
+        <di:waypoint x="698" y="320" />
+        <di:waypoint x="698" y="290" />
+        <di:waypoint x="785" y="290" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0afqjw3_di" bpmnElement="Flow_0afqjw3">
-        <di:waypoint x="280" y="200" />
-        <di:waypoint x="195" y="200" />
+      <bpmndi:BPMNEdge id="Flow_1e2exqk_di" bpmnElement="Flow_1e2exqk">
+        <di:waypoint x="510" y="340" />
+        <di:waypoint x="320" y="340" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Participant_FixPro_di" bpmnElement="Participant_FixPro" isHorizontal="true">
-        <dc:Bounds x="-59" y="290" width="1009" height="300" />
+      <bpmndi:BPMNEdge id="Flow_0asugkp_di" bpmnElement="Flow_0asugkp">
+        <di:waypoint x="810" y="315" />
+        <di:waypoint x="810" y="342" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_1mtqrgs_di" bpmnElement="Participant_1mtqrgs" isHorizontal="true">
+        <dc:Bounds x="160" y="400" width="870" height="350" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Start_FixPro_di" bpmnElement="Start_FixPro">
-        <dc:Bounds x="2" y="322" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="-24" y="358" width="89" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_UpdatePortal_di" bpmnElement="Task_UpdatePortal">
-        <dc:Bounds x="30" y="432" width="180" height="56" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_SendCompletionNotice_di" bpmnElement="Task_SendCompletionNotice">
-        <dc:Bounds x="270" y="432" width="200" height="56" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_ReceiveCollectionRequest_di" bpmnElement="Task_ReceiveCollectionRequest">
-        <dc:Bounds x="115" y="312" width="150" height="56" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_ScheduleCollection_di" bpmnElement="Task_ScheduleCollection">
-        <dc:Bounds x="295" y="312" width="150" height="56" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1x3cok7_di" bpmnElement="Task_CollectTools">
-        <dc:Bounds x="480" y="312" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="End_FixPro_di" bpmnElement="End_FixPro">
-        <dc:Bounds x="532" y="442" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="519" y="478" width="62" height="40" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0grz5qs_di" bpmnElement="Activity_1sim0tz">
-        <dc:Bounds x="750" y="300" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_16mf43j_di" bpmnElement="Task_CollectTools">
+        <dc:Bounds x="540" y="420" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="FP_Flow_3_di" bpmnElement="FP_Flow_3">
-        <di:waypoint x="445" y="340" />
-        <di:waypoint x="480" y="340" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="FP_Flow_2_di" bpmnElement="FP_Flow_2">
-        <di:waypoint x="265" y="340" />
-        <di:waypoint x="295" y="340" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="FP_Flow_1_di" bpmnElement="FP_Flow_1">
-        <di:waypoint x="38" y="340" />
-        <di:waypoint x="115" y="340" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0f952ic_di" bpmnElement="Flow_0f952ic">
-        <di:waypoint x="270" y="442" />
-        <di:waypoint x="210" y="442" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="FP_Flow_6_di" bpmnElement="FP_Flow_6">
-        <di:waypoint x="210" y="460" />
-        <di:waypoint x="270" y="460" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="FP_Flow_7_di" bpmnElement="FP_Flow_7">
-        <di:waypoint x="470" y="460" />
-        <di:waypoint x="532" y="460" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_169or33_di" bpmnElement="Flow_169or33">
-        <di:waypoint x="550" y="392" />
-        <di:waypoint x="550" y="442" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1r7sma5_di" bpmnElement="Flow_1r7sma5">
-        <di:waypoint x="580" y="320" />
-        <di:waypoint x="750" y="320" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0mfzli4_di" bpmnElement="Flow_0mfzli4">
-        <di:waypoint x="790" y="380" />
-        <di:waypoint x="790" y="460" />
-        <di:waypoint x="568" y="460" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="MessageFlow_CollectionRequest_di" bpmnElement="MessageFlow_CollectionRequest">
-        <di:waypoint x="765" y="118" />
-        <di:waypoint x="765" y="250" />
-        <di:waypoint x="190" y="250" />
-        <di:waypoint x="190" y="312" />
+      <bpmndi:BPMNShape id="Event_0b2bsb3_di" bpmnElement="Start_FixPro">
+        <dc:Bounds x="222" y="442" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="895" y="103.00000000000045" width="89" height="14" />
+          <dc:Bounds x="196" y="485" width="89" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="MessageFlow_CompletionNotice_di" bpmnElement="MessageFlow_CompletionNotice">
-        <di:waypoint x="370" y="488" />
-        <di:waypoint x="370" y="550" />
-        <di:waypoint x="1000" y="550" />
-        <di:waypoint x="1000" y="228" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0t3x4kk" bpmnElement="Activity_0jjor8w">
+        <dc:Bounds x="300" y="420" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qxp1hl_di" bpmnElement="Task_ScheduleCollection">
+        <dc:Bounds x="420" y="420" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sz67qk_di" bpmnElement="Activity_1t8laba">
+        <dc:Bounds x="400" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p9xrxz_di" bpmnElement="Activity_0n0lhij">
+        <dc:Bounds x="900" y="430" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_115eaak_di" bpmnElement="Gateway_115eaak">
+        <dc:Bounds x="565" y="545" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_18g03nj_di" bpmnElement="Event_18g03nj">
+        <dc:Bounds x="572" y="632" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="975" y="410" width="89" height="27" />
+          <dc:Bounds x="558" y="675" width="64" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1en0sty_di" bpmnElement="Task_UpdatePortal">
+        <dc:Bounds x="230" y="530" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_08ymje8_di" bpmnElement="Flow_08ymje8">
+        <di:waypoint x="520" y="460" />
+        <di:waypoint x="540" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wlkv1g_di" bpmnElement="Flow_0wlkv1g">
+        <di:waypoint x="640" y="450" />
+        <di:waypoint x="780" y="450" />
+        <di:waypoint x="780" y="460" />
+        <di:waypoint x="900" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12owa7j_di" bpmnElement="Flow_12owa7j">
+        <di:waypoint x="258" y="460" />
+        <di:waypoint x="300" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ff21o2_di" bpmnElement="Flow_0ff21o2">
+        <di:waypoint x="400" y="460" />
+        <di:waypoint x="420" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cx5spv_di" bpmnElement="Flow_0cx5spv">
+        <di:waypoint x="330" y="580" />
+        <di:waypoint x="400" y="580" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07taicl_di" bpmnElement="Flow_07taicl">
+        <di:waypoint x="500" y="570" />
+        <di:waypoint x="565" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05kxcfs_di" bpmnElement="Flow_05kxcfs">
+        <di:waypoint x="400" y="560" />
+        <di:waypoint x="330" y="560" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_101iusd_di" bpmnElement="Flow_101iusd">
+        <di:waypoint x="950" y="510" />
+        <di:waypoint x="950" y="570" />
+        <di:waypoint x="615" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1yc7rst_di" bpmnElement="Flow_1yc7rst">
+        <di:waypoint x="590" y="595" />
+        <di:waypoint x="590" y="632" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1u9n18o_di" bpmnElement="Flow_1u9n18o">
+        <di:waypoint x="450" y="610" />
+        <di:waypoint x="450" y="660" />
+        <di:waypoint x="1070" y="660" />
+        <di:waypoint x="1070" y="370" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1035" y="506" width="89" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
-</definitions>
+</bpmn:definitions>
