@@ -50,13 +50,9 @@ The objective is to **convert written case study requirements into an executable
 
 
 ### Key Actors / Swimlanes
-- ProBuild Warehouse Staff  
-- ProBuild Warehouse Supervisor  
-- ProBuild Operations / Tool Hire Management  
-- FixPro Driver  
-- FixPro Technicians  
-- FixPro Account Manager  
-- FixPro Client Portal System  
+ProBuild Supplies Ltd
+
+FixPro Ltd
 
 
 
@@ -70,13 +66,6 @@ The objective is to **convert written case study requirements into an executable
 | API Sync Data | System-to-system updating |
 | Ready-to-Hire Confirmation | Return to inventory |
 
-
-
-### Decision Gateways
-| Gateway | Outcome |
-| Service classification | Routine / Repair / Decommission |
-| Compliance testing | Pass / Fail |
-| Repair cost threshold > £50 | Authorisation required |
 
 
 ### Next Steps (TO-BE Workflow)
