@@ -3,48 +3,45 @@ package com.example.camundaworker;
 import io.camunda.client.annotation.JobWorker;
 import io.camunda.client.api.response.ActivatedJob;
 import io.camunda.client.api.worker.JobClient;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class PayForCustomerWorker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PayForCustomerWorker.class);
 
-    @JobWorker(type = "process-payment") // MUST match your BPMN taskDefinition
-    public void processPayment(final ActivatedJob job, final JobClient client) {
+    @JobWorker(type = "pay-for-customer")
+    public void payForCustomer(final ActivatedJob job, final JobClient client) {
+        try {
+            String customerId    = getRequiredVariable(job, "customerId");
+            double financeAmount = Double.parseDouble(getRequiredVariable(job, "financeAmount"));
 
-        LOGGER.info("Processing payment...");
+            // Fintrust covering the cost on behalf of the customer
+            boolean paymentMade = financeAmount > 0;
+            LOGGER.info("Fintrust paying for customer: {}, amount: {}", customerId, financeAmount);
 
-        // 🔹 Get variables from BPMN
-        Map<String, Object> variables = job.getVariablesAsMap();
+            client.newCompleteCommand(job.getKey())
+                    .variable("fintrustPaymentMade", paymentMade)
+                    .send()
+                    .join();
 
-        double amount = (double) variables.getOrDefault("price", 0.0);
-
-        // 🔹 Simple mock payment logic
-        boolean paymentSuccess;
-
-        if (amount > 0) {
-            paymentSuccess = true; // simulate success
-        } else {
-            paymentSuccess = false;
+        } catch (Exception e) {
+            LOGGER.error("Pay for customer failed for job {}: {}", job.getKey(), e.getMessage());
+            client.newFailCommand(job.getKey())
+                    .retries(job.getRetries() - 1)
+                    .errorMessage(e.getMessage())
+                    .send()
+                    .join();
         }
+    }
 
-        // 🔹 Prepare result variables
-        Map<String, Object> result = new HashMap<>();
-        result.put("paymentStatus", paymentSuccess ? "SUCCESS" : "FAILED");
-
-        LOGGER.info("Payment result: " + result.get("paymentStatus"));
-
-        // 🔹 Complete the job and return variables
-        client.newCompleteCommand(job.getKey())
-                .variables(result)
-                .send()
-                .join();
+    private String getRequiredVariable(ActivatedJob job, String variableName) {
+        Object value = job.getVariable(variableName);
+        if (value == null) {
+            throw new IllegalStateException("Required process variable is missing: " + variableName);
+        }
+        return value.toString();
     }
 }
