@@ -14,7 +14,8 @@ import java.util.Map;
 @Component
 public class CheckAvailabilityWorker {
     private static final Logger LOGGER = LoggerFactory.getLogger(CheckAvailabilityWorker.class);
-    @JobWorker(type="check-availability")
+
+    @JobWorker(type = "check-availability")
     public void checkAvailability(final ActivatedJob job, final JobClient client) {
         //when a database is implemented, this would check that database for the tool
         //for now just assume that the tool is always available
@@ -30,10 +31,16 @@ public class CheckAvailabilityWorker {
             toolAvailable = false;
         }
 
+        Map<String, Object> result = new HashMap<>();
+        result.put("productCategory", productCategory);
+        result.put("productName", productName);
+        result.put("quantity", quantity);
+        result.put("transactionType", transactionType);
+        result.put("toolAvailable", toolAvailable);
+
         client.newCompleteCommand(job.getKey())
-                .variables(toolAvailable)
+                .variables(result)
                 .send()
                 .join();
     }
 }
-
