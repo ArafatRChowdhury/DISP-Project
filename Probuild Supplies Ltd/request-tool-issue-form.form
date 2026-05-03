@@ -1,0 +1,43 @@
+{
+  "components": [
+    {
+      "label": "customer ID",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0t0yxu1",
+        "columns": null
+      },
+      "id": "Field_19p77jy",
+      "key": "customerId"
+    },
+    {
+      "label": "Product",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1kb1mkb",
+        "columns": null
+      },
+      "id": "Field_0dqh1d1",
+      "key": "productName"
+    },
+    {
+      "label": "Transaction type",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1ch2muf",
+        "columns": null
+      },
+      "id": "Field_12ukqzj",
+      "key": "transactionType"
+    }
+  ],
+  "type": "default",
+  "id": "record-tool-issue-form",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.44.0"
+  },
+  "schemaVersion": 19
+}

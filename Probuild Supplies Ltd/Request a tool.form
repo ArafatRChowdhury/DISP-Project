@@ -1,0 +1,113 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "6199ee4"
+  },
+  "schemaVersion": 19,
+  "id": "request-a-tool-0nprcqb",
+  "components": [
+    {
+      "text": "#### Request a tool",
+      "type": "text",
+      "layout": {
+        "row": "Row_1gsfcju",
+        "columns": null
+      },
+      "id": "Field_020l4lg"
+    },
+    {
+      "text": "###### Tool type",
+      "type": "text",
+      "layout": {
+        "row": "Row_0kzmrx6",
+        "columns": null
+      },
+      "id": "Field_0ahjl2h"
+    },
+    {
+      "label": "",
+      "values": [
+        {
+          "label": "Hammer",
+          "value": "hammer"
+        },
+        {
+          "label": "Saw",
+          "value": "saw"
+        },
+        {
+          "label": "Ladder",
+          "value": "ladder"
+        }
+      ],
+      "type": "checklist",
+      "layout": {
+        "row": "Row_13k55mm",
+        "columns": null
+      },
+      "id": "Field_08i4m28",
+      "key": "toolType",
+      "validate": {
+        "required": true
+      },
+      "readonly": false
+    },
+    {
+      "text": "###### For how long ?",
+      "type": "text",
+      "layout": {
+        "row": "Row_1g6nqsz",
+        "columns": null
+      },
+      "id": "Field_16b4arm"
+    },
+    {
+      "subtype": "datetime",
+      "dateLabel": "From",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_1a4jdan",
+        "columns": null
+      },
+      "id": "Field_1aauyk4",
+      "key": "toolFrom",
+      "timeLabel": "Time",
+      "timeSerializingFormat": "utc_offset",
+      "timeInterval": 15,
+      "use24h": true,
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "subtype": "datetime",
+      "dateLabel": "To",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_03qwi2l",
+        "columns": null
+      },
+      "id": "Field_1vzo0gm",
+      "key": "toolTo",
+      "timeLabel": "Time",
+      "timeSerializingFormat": "utc_offset",
+      "timeInterval": 15,
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Submit",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_0vrg838",
+        "columns": 8
+      },
+      "id": "Field_1ih5kn8"
+    }
+  ],
+  "type": "default"
+}

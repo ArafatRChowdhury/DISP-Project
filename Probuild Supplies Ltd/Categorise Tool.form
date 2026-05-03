@@ -1,0 +1,37 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "e576085"
+  },
+  "schemaVersion": 19,
+  "id": "categorise-tool-006zza1",
+  "components": [
+    {
+      "label": "Tool Category",
+      "values": [
+        {
+          "label": "Routine Maintenance",
+          "value": "routineMaintenance"
+        },
+        {
+          "label": "Repair",
+          "value": "repair"
+        },
+        {
+          "label": "Out of Service",
+          "value": "outOfService"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0e2eoa5",
+        "columns": null
+      },
+      "id": "Field_0c90aih",
+      "key": "toolCategory"
+    }
+  ],
+  "type": "default"
+}

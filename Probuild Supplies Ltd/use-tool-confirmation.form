@@ -1,0 +1,93 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "882a44a"
+  },
+  "schemaVersion": 19,
+  "id": "Form_1hk7d60",
+  "components": [
+    {
+      "text": "### ProBuild Tool Hire Confirmation",
+      "type": "text",
+      "id": "Heading_1",
+      "layout": {
+        "row": "Row_1",
+        "col": 16
+      }
+    },
+    {
+      "label": "Tool Name",
+      "type": "textfield",
+      "id": "Field_ToolName",
+      "key": "toolName",
+      "description": "This field is pre-filled and cannot be changed.",
+      "layout": {
+        "row": "Row_2",
+        "col": 8
+      },
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "subtype": "datetime",
+      "type": "datetime",
+      "id": "Field_ExpectedReturn",
+      "key": "expectedReturnDate",
+      "dateLabel": "Expected Return Date",
+      "timeLabel": "Expected Return Time",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "Row_2",
+        "col": 8
+      },
+      "timeInterval": 15
+    },
+    {
+      "label": "Tool Condition on Collection",
+      "values": [
+        {
+          "label": "Good",
+          "value": "good"
+        },
+        {
+          "label": "Minor Damage",
+          "value": "minorDamage"
+        },
+        {
+          "label": "Major Damage",
+          "value": "majorDamage"
+        }
+      ],
+      "type": "radio",
+      "id": "Field_ToolCondition",
+      "key": "toolCondition",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "Row_3",
+        "col": 16
+      }
+    },
+    {
+      "label": "I confirm I have read and agree to the terms and conditions.",
+      "type": "checkbox",
+      "id": "Field_TermsConfirmation",
+      "key": "termsAccepted",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "Row_4",
+        "col": 16
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}

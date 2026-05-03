@@ -1,0 +1,95 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "882a44a"
+  },
+  "schemaVersion": 19,
+  "id": "Form_164wjbt",
+  "components": [
+    {
+      "text": "### ProBuild Payment Selection",
+      "type": "text",
+      "id": "Heading_1",
+      "layout": {
+        "row": "Row_1",
+        "col": 16
+      }
+    },
+    {
+      "label": "Select Payment Method",
+      "values": [
+        {
+          "label": "Cash",
+          "value": "cash"
+        },
+        {
+          "label": "Card",
+          "value": "card"
+        },
+        {
+          "label": "Interest-Free Finance",
+          "value": "finance"
+        }
+      ],
+      "type": "radio",
+      "id": "Field_PaymentMethod",
+      "key": "paymentMethod",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "Row_2",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### Payment Details",
+      "type": "text",
+      "id": "Subheading_1",
+      "layout": {
+        "row": "Row_3",
+        "col": 16
+      }
+    },
+    {
+      "label": "Card Number",
+      "type": "textfield",
+      "id": "Field_CardNumber",
+      "key": "cardNumber",
+      "description": "Enter the 16-digit number on your card.",
+      "validate": {
+        "required": true,
+        "pattern": "^[0-9]{16}$"
+      },
+      "layout": {
+        "row": "Row_4",
+        "col": 16
+      },
+      "properties": { },
+      "conditional": {
+        "hide": "==paymentMethod = \"card\""
+      }
+    },
+    {
+      "label": "Trade Card Number",
+      "type": "textfield",
+      "id": "Field_TradeCardNumber",
+      "key": "tradeCardNumber",
+      "description": "Enter your ProBuild Trade Card number.",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "Row_5",
+        "col": 16
+      },
+      "conditional": {
+        "hide": "==paymentMethod = \"finance\""
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}
