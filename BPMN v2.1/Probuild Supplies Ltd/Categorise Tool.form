@@ -1,0 +1,59 @@
+{
+  "components": [
+    {
+      "label": "Product Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0bn6gv3",
+        "columns": null
+      },
+      "id": "Field_1a42f6f",
+      "key": "productName",
+      "readonly": true
+    },
+    {
+      "label": "Condition",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0mck33k",
+        "columns": null
+      },
+      "id": "Field_0hmyseq",
+      "key": "toolCondition",
+      "readonly": true
+    },
+    {
+      "label": "Tool Category",
+      "values": [
+        {
+          "label": "Routine Maintenance",
+          "value": "routineMaintenance"
+        },
+        {
+          "label": "Repair",
+          "value": "repair"
+        },
+        {
+          "label": "Out of Service",
+          "value": "outOfService"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0e2eoa5",
+        "columns": null
+      },
+      "id": "Field_0c90aih",
+      "key": "toolCategory"
+    }
+  ],
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.44.0"
+  },
+  "schemaVersion": 19,
+  "id": "categorise-tool-006zza1",
+  "type": "default"
+}

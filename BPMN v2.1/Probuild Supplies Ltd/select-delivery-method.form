@@ -1,0 +1,104 @@
+{
+  "components": [
+    {
+      "text": "### ProBuild Order",
+      "type": "text",
+      "id": "Text_1c7yqbt",
+      "layout": {
+        "row": "Row_1",
+        "col": 16
+      }
+    },
+    {
+      "text": "Please select your preferred method for receiving your order.",
+      "type": "text",
+      "id": "Text_05i3dg1",
+      "layout": {
+        "row": "Row_2",
+        "col": 16
+      }
+    },
+    {
+      "label": "Delivery Method",
+      "values": [
+        {
+          "label": "Delivery",
+          "value": "delivery"
+        },
+        {
+          "label": "Click and Collect",
+          "value": "clickAndCollect"
+        },
+        {
+          "label": "Direct Purchase (In-Store)",
+          "value": "directPurchase"
+        }
+      ],
+      "type": "radio",
+      "id": "Field_1g3i09x",
+      "key": "fulfilmentMethod",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "Row_3",
+        "col": 16
+      }
+    },
+    {
+      "label": "Delivery Address",
+      "type": "textfield",
+      "id": "Field_09z5w9s",
+      "key": "deliveryAddress",
+      "description": "Please provide the full street address, city, and postal code.",
+      "conditional": {
+        "hide": "==fulfilmentMethod = \"delivery\""
+      },
+      "validate": {
+        "required": true,
+        "minLength": 10
+      },
+      "layout": {
+        "row": "Row_4",
+        "col": 16
+      }
+    },
+    {
+      "label": "Preferred Collection Time",
+      "type": "textfield",
+      "id": "Field_1v45v3a",
+      "key": "collectionTime",
+      "description": "e.g., Tomorrow between 2 PM - 4 PM",
+      "conditional": {
+        "hide": "==fulfilmentMethod = \"clickAndCollect\""
+      },
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "Row_5",
+        "col": 16
+      }
+    },
+    {
+      "label": "Confirm Selection",
+      "action": "submit",
+      "type": "button",
+      "id": "Field_045p24w",
+      "layout": {
+        "row": "Row_6",
+        "col": 16
+      }
+    }
+  ],
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.44.0"
+  },
+  "schemaVersion": 19,
+  "id": "select-delivery-method",
+  "generated": true,
+  "type": "default"
+}
