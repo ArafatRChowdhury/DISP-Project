@@ -1,0 +1,108 @@
+{
+  "components": [
+    {
+      "text": "### Product Order Details",
+      "type": "text",
+      "id": "Heading_order_details",
+      "layout": {
+        "row": "row_1",
+        "col": 16
+      }
+    },
+    {
+      "label": "Product Category",
+      "values": [
+        {
+          "label": "Power Tools",
+          "value": "powerTools"
+        },
+        {
+          "label": "Hand Tools",
+          "value": "handTools"
+        },
+        {
+          "label": "Building Materials",
+          "value": "buildingMaterials"
+        },
+        {
+          "label": "Fasteners",
+          "value": "fasteners"
+        },
+        {
+          "label": "Adhesives",
+          "value": "adhesives"
+        }
+      ],
+      "type": "select",
+      "id": "Select_product_category",
+      "key": "productCategory",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_2",
+        "col": 8
+      }
+    },
+    {
+      "label": "Product Name",
+      "type": "textfield",
+      "id": "Textfield_product_name",
+      "key": "productName",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_2",
+        "col": 8
+      }
+    },
+    {
+      "label": "Quantity",
+      "type": "number",
+      "id": "Number_quantity",
+      "key": "quantity",
+      "validate": {
+        "required": true,
+        "min": 1
+      },
+      "layout": {
+        "row": "row_3",
+        "col": 6
+      }
+    },
+    {
+      "label": "Transaction Type",
+      "values": [
+        {
+          "label": "Sale",
+          "value": "sale"
+        },
+        {
+          "label": "Hire",
+          "value": "hire"
+        }
+      ],
+      "type": "radio",
+      "id": "Radio_transaction_type",
+      "key": "transactionType",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_4",
+        "col": 6
+      }
+    }
+  ],
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.44.0"
+  },
+  "schemaVersion": 19,
+  "id": "Form_1bsfzes",
+  "generated": true,
+  "type": "default"
+}

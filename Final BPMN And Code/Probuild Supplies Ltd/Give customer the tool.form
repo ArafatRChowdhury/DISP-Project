@@ -1,0 +1,150 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "6199ee4"
+  },
+  "schemaVersion": 19,
+  "id": "give-customer-the-tool-0b8a9yz",
+  "components": [
+    {
+      "text": "### Camunda Copilot",
+      "type": "text",
+      "id": "FormHeading",
+      "layout": {
+        "row": "row_0",
+        "col": 16
+      }
+    },
+    {
+      "text": "I am the Camunda Copilot, here to help with process modeling and automation.",
+      "type": "text",
+      "id": "Paragraph_intro",
+      "layout": {
+        "row": "row_1",
+        "col": 16
+      }
+    },
+    {
+      "text": "Camunda is a process automation platform used to design, automate, and improve business processes from end-to-end. Key components include:",
+      "type": "text",
+      "id": "Paragraph_platform_desc",
+      "layout": {
+        "row": "row_2",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### BPMN (Business Process Model and Notation)",
+      "type": "text",
+      "id": "Subheading_bpmn",
+      "layout": {
+        "row": "row_3",
+        "col": 16
+      }
+    },
+    {
+      "text": "A graphical standard for modeling and executing business processes.",
+      "type": "text",
+      "id": "Paragraph_bpmn",
+      "layout": {
+        "row": "row_4",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### DMN (Decision Model and Notation)",
+      "type": "text",
+      "id": "Subheading_dmn",
+      "layout": {
+        "row": "row_5",
+        "col": 16
+      }
+    },
+    {
+      "text": "A standard for modeling and automating business decisions.",
+      "type": "text",
+      "id": "Paragraph_dmn",
+      "layout": {
+        "row": "row_6",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### Forms",
+      "type": "text",
+      "id": "Subheading_forms",
+      "layout": {
+        "row": "row_7",
+        "col": 16
+      }
+    },
+    {
+      "text": "A way to create user interfaces for human tasks within your processes.",
+      "type": "text",
+      "id": "Paragraph_forms",
+      "layout": {
+        "row": "row_8",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### Process Orchestration",
+      "type": "text",
+      "id": "Subheading_orchestration",
+      "layout": {
+        "row": "row_9",
+        "col": 16
+      }
+    },
+    {
+      "text": "The ability to coordinate interactions between different systems, APIs, microservices, and people.",
+      "type": "text",
+      "id": "Paragraph_orchestration",
+      "layout": {
+        "row": "row_10",
+        "col": 16
+      }
+    },
+    {
+      "label": "How can I help you with BPMN, DMN, or designing a form today?",
+      "values": [
+        {
+          "label": "BPMN Assistance",
+          "value": "bpmn"
+        },
+        {
+          "label": "DMN Assistance",
+          "value": "dmn"
+        },
+        {
+          "label": "Form Design Assistance",
+          "value": "forms"
+        }
+      ],
+      "type": "select",
+      "id": "Field_HelpTopic",
+      "key": "helpTopic",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_11",
+        "col": 16
+      }
+    },
+    {
+      "label": "Submit",
+      "action": "submit",
+      "type": "button",
+      "id": "Field_Submit",
+      "layout": {
+        "row": "row_12",
+        "col": 16
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}
